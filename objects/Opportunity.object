@@ -704,6 +704,12 @@
             </values>
         </picklistValues>
     </recordTypes>
+    <recordTypes>
+        <fullName>testid</fullName>
+        <active>true</active>
+        <businessProcess>Standard Opportunity</businessProcess>
+        <label>testid</label>
+    </recordTypes>
     <searchLayouts>
         <customTabListAdditionalFields>OPPORTUNITY.NAME</customTabListAdditionalFields>
         <customTabListAdditionalFields>ACCOUNT.NAME</customTabListAdditionalFields>
