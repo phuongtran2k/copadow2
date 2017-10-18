@@ -119,6 +119,10 @@
                 <behavior>Edit</behavior>
                 <field>Category_Subtype__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>SLA_Breach_Hours__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns/>
         <style>TwoColumnsTopToBottom</style>
