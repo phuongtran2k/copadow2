@@ -7,4 +7,5 @@
     <name>Product Line Item Attachment Sample</name>
     <style>none</style>
     <type>visualforce</type>
+    <uiType>Aloha</uiType>
 </EmailTemplate>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Network xmlns="http://soap.sforce.com/2006/04/metadata">
+    <allowInternalUserLogin>false</allowInternalUserLogin>
     <allowMembersToFlag>false</allowMembersToFlag>
     <branding>
         <primaryColor>#1797C0</primaryColor>
@@ -22,7 +23,9 @@
     <enablePrivateMessages>false</enablePrivateMessages>
     <enableReputation>false</enableReputation>
     <enableSiteAsContainer>false</enableSiteAsContainer>
+    <enableTopicAssignmentRules>false</enableTopicAssignmentRules>
     <forgotPasswordTemplate>unfiled$public/CommunityForgotPasswordEmailTemplate</forgotPasswordTemplate>
+    <gatherCustomerSentimentData>false</gatherCustomerSentimentData>
     <navigationLinkSet>
         <navigationMenuItem>
             <label>Topics</label>
@@ -36,11 +39,17 @@
         <profile>admin</profile>
         <profile>customer community user</profile>
     </networkMemberGroups>
+    <networkPageOverrides>
+        <changePasswordPageOverrideSetting>Standard</changePasswordPageOverrideSetting>
+        <forgotPasswordPageOverrideSetting>Standard</forgotPasswordPageOverrideSetting>
+        <homePageOverrideSetting>Standard</homePageOverrideSetting>
+        <loginPageOverrideSetting>Standard</loginPageOverrideSetting>
+    </networkPageOverrides>
     <picassoSite>Cirrus_Community_C</picassoSite>
     <selfRegistration>false</selfRegistration>
     <sendWelcomeEmail>true</sendWelcomeEmail>
     <site>Cirrus_Community</site>
-    <status>Live</status>
+    <status>DownForMaintenance</status>
     <tabs>
         <defaultTab>home</defaultTab>
         <standardTab>home</standardTab>

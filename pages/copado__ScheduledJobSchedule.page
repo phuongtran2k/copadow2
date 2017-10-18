@@ -5,7 +5,7 @@
     <script type="text/javascript" src="{!URLFOR($Resource.Statics,'js/libs/jquery.min.1.10.2.js')}"></script>
     <script type="text/javascript" src="{!URLFOR($Resource.Statics,'js/libs/jquery-ui.min.js')}"></script>
     <script type="text/javascript" src="{!URLFOR($Resource.jqx, 'jqwidgets/jqx-all.js')}"></script>
-    <script type="text/javascript" src="{!URLFOR($Resource.Statics, 'js/cronExpression.js')}"></script>
+    <script type="text/javascript" src="{!URLFOR($Resource.cronExpression) }"></script>
     <head>
         
         <script type="text/javascript">
@@ -21,7 +21,7 @@
     
 	<apex:form id="theForm">
         <apex:pageMessages id="theMessages"/>
-    	<apex:pageBlock id="pb_main" mode="edit">
+    	<apex:pageBlock id="pb_main" mode="edit" rendered="{!AND(showOptions,!showError)}">
         <apex:pageBlockButtons id="pbb_main">
             <apex:commandButton action="{!save_job}" value="{!$Label.copado__save}" id="btnSave"/>
             <apex:commandButton action="{!cancel}" value="{!$Label.copado__cancel}" id="btnCancel" immediate="true"/>

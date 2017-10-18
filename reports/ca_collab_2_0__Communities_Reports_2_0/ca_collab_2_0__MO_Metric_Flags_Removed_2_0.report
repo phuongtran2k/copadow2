@@ -11,6 +11,7 @@
             <operator>equals</operator>
             <value>u,r</value>
         </criteriaItems>
+        <language>en_US</language>
     </filter>
     <format>Summary</format>
     <groupingsDown>

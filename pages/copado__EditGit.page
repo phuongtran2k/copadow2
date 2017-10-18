@@ -3,7 +3,7 @@
 	<apex:form id="theForm">
 		<apex:sectionHeader title="{!$ObjectType.copado__Git_Repository__c.Label} {!$Label.copado__edit}" subtitle="{!IF(ISBLANK(git.Name),'New '+ $ObjectType.copado__Git_Repository__c.Label ,git.Name)}" description="{!$Label.copado__git_repository_edit_description}"/>
 		<apex:pageMessages id="theMessages"/>
-		<apex:pageBlock id="pb_editGit"  mode="edit" helpUrl="http://docs.copa.do/git-repository" helpTitle="{!$Label.copado__help_for_this_page}">
+		<apex:pageBlock id="pb_editGit"  mode="edit" helpUrl="http://docs.copa.do/git-repository" helpTitle="{!$Label.copado__help_for_this_page}" rendered="{!AND(showOptions,!showError)}">
             <apex:pageblockButtons >
                 <apex:commandButton value="{!$Label.site.save}" styleClass="btnImportant" action="{!save}" />
                 <apex:commandButton value="{!$Label.site.cancel}" action="{!cancel}" />

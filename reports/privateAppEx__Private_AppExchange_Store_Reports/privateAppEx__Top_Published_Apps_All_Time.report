@@ -27,6 +27,7 @@
             <operator>equals</operator>
             <value>Published</value>
         </criteriaItems>
+        <language>en_US</language>
     </filter>
     <format>Tabular</format>
     <name>Top Published Apps (All Time)</name>

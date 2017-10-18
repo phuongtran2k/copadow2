@@ -18,6 +18,10 @@
         <name>copado__External_ID__c</name>
     </fields>
     <fields>
+        <label><!-- Last Status Date --></label>
+        <name>copado__Last_Status_Date__c</name>
+    </fields>
+    <fields>
         <label><!-- Last Status Icon --></label>
         <name>copado__Last_Status_Icon__c</name>
     </fields>

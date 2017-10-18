@@ -35,6 +35,7 @@
             <operator>equals</operator>
             <value>P,C,c,b</value>
         </criteriaItems>
+        <language>en_US</language>
     </filter>
     <format>Tabular</format>
     <name>Best Answers From External Members</name>

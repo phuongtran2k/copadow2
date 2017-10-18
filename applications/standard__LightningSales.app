@@ -22,6 +22,5 @@
     <tab>standard-OtherUserProfile</tab>
     <tab>standard-Case</tab>
     <tab>standard-News</tab>
-    <tab>standard-ForecastingLightning</tab>
     <uiType>Lightning</uiType>
 </CustomApplication>

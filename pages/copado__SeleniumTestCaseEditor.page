@@ -1,4 +1,4 @@
-<apex:page tabStyle="copado__Selenium_Test_Case__c" standardController="copado__Selenium_Test_Case__c" extensions="copado.SeleniumTestCaseViewEdit" showHeader="{!$CurrentPage.parameters.popup!='1'}" sidebar="{!$CurrentPage.parameters.popup!='1'}">
+<apex:page tabStyle="copado__Selenium_Test_Case__c" standardController="copado__Selenium_Test_Case__c" extensions="copado.SeleniumTestCaseViewEdit,copado.LicenseHelper" showHeader="{!$CurrentPage.parameters.popup!='1'}" sidebar="{!$CurrentPage.parameters.popup!='1'}">
 
     <c:GAnalytics />
     <div style="display: none">
@@ -10,18 +10,20 @@
     <script>
     window.CopadoParams = {isView: (window != top),
                            apiKey: copado_api_key,
-                           apiEndpoint: "{!APIEndpoint}",
+                           apiEndpoint: "{!JSEncode(APIEndpoint)}",
                            apiSessionId: "{!$Api.Session_ID}",
-                           testCaseIds: ['{!Selenium_Test_Case__c.Id}'],
+                           testCaseIds: ['{!JSEncode(Selenium_Test_Case__c.Id)}'],
                            testcases: '{!URLENCODE(jsonTestCases)}'
                           };
     </script>
 
-    <apex:stylesheet value="{!$Setup.copado__Settings__c.copado__Server_URL__c}/selenium-ide/handsontable.full.css"/>
-	<apex:stylesheet value="{!$Setup.copado__Settings__c.copado__Server_URL__c}/selenium-ide/copado-ide.css"/>
-    <apex:includeScript value="{!$Setup.copado__Settings__c.copado__Server_URL__c}/selenium-ide/copado-ide-all.js"/>
+    <apex:stylesheet value="{!JSEncode($Setup.copado__Settings__c.copado__Server_URL__c)}/selenium-ide/handsontable.full.css"/>
+	<apex:stylesheet value="{!JSEncode($Setup.copado__Settings__c.copado__Server_URL__c)}/selenium-ide/copado-ide.css"/>
+    <apex:includeScript value="{!JSEncode($Setup.copado__Settings__c.copado__Server_URL__c)}/selenium-ide/copado-ide-all.js"/>
 
-    <apex:pageMessage severity="WARNING" strength="2" summary="{!$Label.copado__selenium_not_enabled}" rendered="{!!and($Setup.copado__Settings__c.copado__Enabled_Multi_Licenses__c, $Setup.copado__Copado_License__c.copado__Enable_CST__c)}"></apex:pageMessage>
+    <!-- check that the feature is enabled, and the user has a license assigned -->
+    <apex:pageMessage severity="WARNING" strength="2" summary="{!possibleCSTErrorMsg}" rendered="{!!ISNULL(possibleCSTErrorMsg)}"></apex:pageMessage>
+
     <div id="CopadoRecorderBody">
     </div>
 	

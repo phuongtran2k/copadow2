@@ -46,6 +46,7 @@
     <deprecated>false</deprecated>
     <enableActivities>false</enableActivities>
     <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableReports>false</enableReports>
@@ -70,7 +71,7 @@
         <fullName>copado__Perform_Manual_Task__c</fullName>
         <deprecated>false</deprecated>
         <externalId>false</externalId>
-        <label>Perform Manual Task</label>
+        <label>Perform Deployment Task</label>
         <required>false</required>
         <trackTrending>false</trackTrending>
         <type>Picklist</type>
@@ -148,6 +149,62 @@
         <visibleLines>30</visibleLines>
     </fields>
     <fields>
+        <fullName>copado__Type__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Manual Task</fullName>
+                    <default>false</default>
+                    <label>Manual Task</label>
+                </value>
+                <value>
+                    <fullName>Data</fullName>
+                    <default>false</default>
+                    <label>Data</label>
+                </value>
+                <value>
+                    <fullName>Bulk Data</fullName>
+                    <default>false</default>
+                    <label>Bulk Data</label>
+                </value>
+                <value>
+                    <fullName>Delete MetaData</fullName>
+                    <default>false</default>
+                    <label>Delete MetaData</label>
+                </value>
+                <value>
+                    <fullName>Custom Settings</fullName>
+                    <default>false</default>
+                    <label>Custom Settings</label>
+                </value>
+                <value>
+                    <fullName>Apex</fullName>
+                    <default>false</default>
+                    <label>Apex</label>
+                </value>
+                <value>
+                    <fullName>URL Callout</fullName>
+                    <default>false</default>
+                    <label>URL Callout</label>
+                </value>
+                <value>
+                    <fullName>Custom Setting</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>Custom Setting</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
         <fullName>copado__User_Story__c</fullName>
         <deprecated>false</deprecated>
         <externalId>false</externalId>
@@ -160,6 +217,17 @@
         <trackTrending>false</trackTrending>
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>copado__dataJSON__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Standard views (New, Edit, View, Clone) for Deployment Task object are overwritten. This field is being used by to controller extension class of the page that overwrites the standards.</description>
+        <externalId>false</externalId>
+        <label>dataJSON</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
     </fields>
     <label>Deployment Task</label>
     <nameField>

@@ -47,6 +47,7 @@
             <operator>equals</operator>
             <value>privateAppEx__ListingActivity__c.privateAppEx__AccessRequest,privateAppEx__ListingActivity__c.privateAppEx__AssetView,privateAppEx__ListingActivity__c.privateAppEx__Install,privateAppEx__ListingActivity__c.privateAppEx__PageView</value>
         </criteriaItems>
+        <language>en_US</language>
     </filter>
     <format>Summary</format>
     <groupingsDown>

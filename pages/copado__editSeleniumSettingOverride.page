@@ -9,12 +9,13 @@
         
         <link rel="stylesheet" href="{!URLFOR($Resource.Statics,'css/jquery-ui.css')}"></link>
         
-        <apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/utilsV2.js')}"></apex:includeScript>
-        <script type="text/javascript" src="{!URLFOR($Resource.SeleniumStatics, 'js/seleniumSettings.js')}"></script>
+        <apex:includeScript value="{!URLFOR($Resource.utilsV2) }"></apex:includeScript>
+        <script type="text/javascript" src="{!URLFOR($Resource.seleniumSettings)}"></script>
         
         <script type="text/javascript">
             var $copado = jQuery.noConflict(); 
             var __sfdcSessionId = '{!GETSESSIONID()}';
+            var Copado_Licenses = {!CurrentUserLicenses};
         </script>
         <script src="/soap/ajax/36.0/connection.js"></script>
     </head>
@@ -54,9 +55,9 @@
         </apex:pageBlock>
     </apex:form>
     <script type="text/javascript">
-        seleniumSettings.config.herokuServer = '{!herokuServer}';
+        seleniumSettings.config.herokuServer = '{!JSENCODE(herokuServer)}';
         var copadoApp = {
-            urlParameters: '{!urlParameters}'
+            urlParameters: '{!JSENCODE(urlParameters)}'
         };
         
         seleniumSettings.labels.SELECTED = copadoLabels.selected;
@@ -69,8 +70,8 @@
         seleniumSettings.labels.SELECTALL = copadoLabels.select_all;
         seleniumSettings.labels.UNSELECTALL = copadoLabels.unselect_all;
         
-        seleniumSettings.data.selectedProvider = '{!copado__Selenium_Settings__c.copado__Provider__c}';
-        seleniumSettings.data.selections = '{!copado__Selenium_Settings__c.copado__Selected_Platforms__c}';
+        seleniumSettings.data.selectedProvider = '{!JSENCODE(copado__Selenium_Settings__c.copado__Provider__c)}';
+        seleniumSettings.data.selections = '{!JSENCODE(copado__Selenium_Settings__c.copado__Selected_Platforms__c)}';
         seleniumSettings.doCallout();
     </script>
     <c:CheckFeaturesComponent />

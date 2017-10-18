@@ -51,6 +51,7 @@
             <operator>equals</operator>
             <value>privateAppEx__ListingActivity__c.privateAppEx__RequestInstall</value>
         </criteriaItems>
+        <language>en_US</language>
     </filter>
     <format>Summary</format>
     <groupingsDown>

@@ -42,6 +42,9 @@
         <type>Lookup</type>
     </fields>
     <fields>
+        <fullName>PresenceUserConfig</fullName>
+    </fields>
+    <fields>
         <fullName>PreviousCapacity</fullName>
     </fields>
     <fields>
@@ -61,5 +64,5 @@
         <fullName>UserId</fullName>
         <type>Lookup</type>
     </fields>
-    <sharingModel>Private</sharingModel>
+    <sharingModel>Read</sharingModel>
 </CustomObject>

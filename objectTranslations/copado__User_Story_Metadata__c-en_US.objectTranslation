@@ -5,6 +5,10 @@
         <name>copado__Metadata_API_Name__c</name>
     </fields>
     <fields>
+        <label><!-- Status Icon --></label>
+        <name>copado__Status_Icon__c</name>
+    </fields>
+    <fields>
         <label><!-- Status --></label>
         <name>copado__Status__c</name>
         <picklistValues>

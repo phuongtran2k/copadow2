@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Network xmlns="http://soap.sforce.com/2006/04/metadata">
+    <allowInternalUserLogin>false</allowInternalUserLogin>
     <allowMembersToFlag>true</allowMembersToFlag>
     <branding>
         <primaryColor>#1797C0</primaryColor>
@@ -22,7 +23,9 @@
     <enablePrivateMessages>false</enablePrivateMessages>
     <enableReputation>true</enableReputation>
     <enableSiteAsContainer>true</enableSiteAsContainer>
+    <enableTopicAssignmentRules>false</enableTopicAssignmentRules>
     <forgotPasswordTemplate>unfiled$public/CommunityForgotPasswordEmailTemplate</forgotPasswordTemplate>
+    <gatherCustomerSentimentData>false</gatherCustomerSentimentData>
     <navigationLinkSet>
         <navigationMenuItem>
             <label>Topics</label>
@@ -36,6 +39,12 @@
         <profile>admin</profile>
         <profile>fleece_customer</profile>
     </networkMemberGroups>
+    <networkPageOverrides>
+        <changePasswordPageOverrideSetting>Standard</changePasswordPageOverrideSetting>
+        <forgotPasswordPageOverrideSetting>Designer</forgotPasswordPageOverrideSetting>
+        <homePageOverrideSetting>Standard</homePageOverrideSetting>
+        <loginPageOverrideSetting>Designer</loginPageOverrideSetting>
+    </networkPageOverrides>
     <picassoSite>Customer_Community_C</picassoSite>
     <reputationLevels>
         <level>
@@ -138,7 +147,7 @@
     <selfRegistration>false</selfRegistration>
     <sendWelcomeEmail>true</sendWelcomeEmail>
     <site>Customer_Community</site>
-    <status>Live</status>
+    <status>DownForMaintenance</status>
     <tabs>
         <defaultTab>Chatter</defaultTab>
         <standardTab>Chatter</standardTab>

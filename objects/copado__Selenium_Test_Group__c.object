@@ -46,6 +46,7 @@
     <deprecated>false</deprecated>
     <enableActivities>false</enableActivities>
     <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
@@ -61,6 +62,31 @@
         <required>false</required>
         <trackTrending>false</trackTrending>
         <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>copado__Environment__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Environment</label>
+        <referenceTo>copado__Environment__c</referenceTo>
+        <relationshipLabel>Selenium Test Groups</relationshipLabel>
+        <relationshipName>Selenium_Test_Groups</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>copado__External_Id__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <deprecated>false</deprecated>
+        <externalId>true</externalId>
+        <label>External Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
     </fields>
     <fields>
         <fullName>copado__Manage_Test_Runs_manually__c</fullName>
@@ -89,6 +115,15 @@ Check it to manage the Test Runs in this group manually, then go to a Test Run l
         <type>Lookup</type>
     </fields>
     <fields>
+        <fullName>copado__Status_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Status Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
         <fullName>copado__Status_Icon__c</fullName>
         <deprecated>false</deprecated>
         <externalId>false</externalId>
@@ -98,6 +133,9 @@ CASE(TEXT(copado__Status__c),
 &apos;Completed with errors&apos;, &apos;/resource/&apos; &amp; IF($Setup.copado__Settings__c.copado__Namespace__c=&apos;none&apos;,&apos;&apos;,if(isblank($Setup.copado__Settings__c.copado__Namespace__c),&apos;copado__&apos;,$Setup.copado__Settings__c.copado__Namespace__c)) &amp; &apos;Statics/img/icons/warning16.png&apos;, 
 
 &apos;Completed successfully&apos;, &apos;/resource/&apos; &amp; IF($Setup.copado__Settings__c.copado__Namespace__c=&apos;none&apos;,&apos;&apos;,if(isblank($Setup.copado__Settings__c.copado__Namespace__c),&apos;copado__&apos;,$Setup.copado__Settings__c.copado__Namespace__c)) &amp; &apos;Statics/img/icons/confirm16.png&apos;, 
+
+&apos;Completed with warnings&apos;, &apos;/resource/&apos; &amp; IF($Setup.copado__Settings__c.copado__Namespace__c=&apos;none&apos;,&apos;&apos;,if(isblank($Setup.copado__Settings__c.copado__Namespace__c),&apos;copado__&apos;,$Setup.copado__Settings__c.copado__Namespace__c)) &amp; &apos;Statics/img/icons/confirm16.png&apos;, 
+
 
 &apos;In Progress&apos;, &apos;/resource/&apos; &amp; IF($Setup.copado__Settings__c.copado__Namespace__c=&apos;none&apos;,&apos;&apos;,if(isblank($Setup.copado__Settings__c.copado__Namespace__c),&apos;copado__&apos;,$Setup.copado__Settings__c.copado__Namespace__c)) &amp; &apos;Statics/img/icons/loading.gif&apos;,
 
@@ -148,6 +186,38 @@ TEXT(copado__Status__c)
             </valueSetDefinition>
         </valueSet>
     </fields>
+    <fields>
+        <fullName>copado__Type__c</fullName>
+        <deprecated>false</deprecated>
+        <description>If ?Regression Test? or ?User Story Test? is selected, then all Org Credentials associated to that Test Group must be linked to the same environment.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If ?Regression Test? or ?User Story Test? is selected, then all Org Credentials associated to that Test Group must be linked to the same environment.</inlineHelpText>
+        <label>Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Default</fullName>
+                    <default>false</default>
+                    <label>Default</label>
+                </value>
+                <value>
+                    <fullName>Regression Test</fullName>
+                    <default>false</default>
+                    <label>Regression Test</label>
+                </value>
+                <value>
+                    <fullName>User Story Test</fullName>
+                    <default>false</default>
+                    <label>User Story Test</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
     <label>Selenium Test Group</label>
     <listViews>
         <fullName>copado__All</fullName>
@@ -172,6 +242,14 @@ TEXT(copado__Status__c)
         <customTabListAdditionalFields>copado__Status_Icon__c</customTabListAdditionalFields>
     </searchLayouts>
     <sharingModel>Read</sharingModel>
+    <validationRules>
+        <fullName>copado__Environment_Required</fullName>
+        <active>true</active>
+        <description>If the Type value is equal to &quot;Regression Test&quot; or &quot;User Story Test&quot;, the Environment field must have a value.</description>
+        <errorConditionFormula>AND( ISBLANK( copado__Environment__c ), OR(ISPICKVAL( copado__Type__c , &quot;Regression Test&quot;), ISPICKVAL( copado__Type__c , &quot;User Story Test&quot;)))</errorConditionFormula>
+        <errorDisplayField>copado__Environment__c</errorDisplayField>
+        <errorMessage>The Environment field is required if the Type is &quot;User Story Test&quot; or &quot;Regression Test&quot;.</errorMessage>
+    </validationRules>
     <visibility>Public</visibility>
     <webLinks>
         <fullName>copado__Refresh_Results</fullName>

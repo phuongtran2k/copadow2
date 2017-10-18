@@ -5,7 +5,7 @@
         <name>copado__Order__c</name>
     </fields>
     <fields>
-        <label><!-- Perform Manual Task --></label>
+        <label><!-- Perform Deployment Task --></label>
         <name>copado__Perform_Manual_Task__c</name>
         <picklistValues>
             <masterLabel>After Deployment</masterLabel>
@@ -45,8 +45,44 @@
         <name>copado__Task_Description__c</name>
     </fields>
     <fields>
+        <label><!-- Type --></label>
+        <name>copado__Type__c</name>
+        <picklistValues>
+            <masterLabel>Apex</masterLabel>
+            <translation><!-- Apex --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bulk Data</masterLabel>
+            <translation><!-- Bulk Data --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Custom Settings</masterLabel>
+            <translation><!-- Custom Settings --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Data</masterLabel>
+            <translation><!-- Data --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Delete MetaData</masterLabel>
+            <translation><!-- Delete MetaData --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Manual Task</masterLabel>
+            <translation><!-- Manual Task --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>URL Callout</masterLabel>
+            <translation><!-- URL Callout --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
         <label><!-- User Story --></label>
         <name>copado__User_Story__c</name>
         <relationshipLabel><!-- Deployment Tasks --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- dataJSON --></label>
+        <name>copado__dataJSON__c</name>
     </fields>
 </CustomObjectTranslation>

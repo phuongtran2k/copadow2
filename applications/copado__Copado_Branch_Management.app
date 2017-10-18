@@ -12,4 +12,6 @@
     <tab>standard-report</tab>
     <tab>copado__Account_Summary</tab>
     <tab>copado__Scheduled_Job__c</tab>
+    <tab>copado__External_CI_Setting__c</tab>
+    <tab>copado__External_CI_Job__c</tab>
 </CustomApplication>

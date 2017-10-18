@@ -26,6 +26,7 @@
             <operator>equals</operator>
             <value>privateAppEx__ListingActivity__c.privateAppEx__AccessRequest</value>
         </criteriaItems>
+        <language>en_US</language>
     </filter>
     <format>Summary</format>
     <groupingsDown>

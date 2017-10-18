@@ -5,7 +5,7 @@
     
     <apex:form id="theForm">
         <apex:pageMessages id="the_messages"/>
-        <apex:pageBlock >
+        <apex:pageBlock rendered="{!AND(showOptions,!showError)}" >
             <apex:pageBlockButtons >
                 <apex:commandButton action="{!edit}" value="{!$Label.copado__edit}" id="cm_edit"/>
                 <apex:commandButton action="{!stop}" value="{!$Label.copado__stop}" id="cm_stop"/>
@@ -34,7 +34,7 @@
             </apex:pageBlockSection>
         </apex:pageBlock>
     </apex:form>
-    <apex:relatedList id="rl_runs" list="Scheduled_Job_Runs__r"/>
+    <apex:relatedList id="rl_runs" list="Scheduled_Job_Runs__r" rendered="{!AND(showOptions,!showError)}"/>
     <script>
         ga('send', 'pageview', {
             'page': '/ScheduledJobViewOverride',

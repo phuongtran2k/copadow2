@@ -1,4 +1,5 @@
 <apex:page showHeader="true" sidebar="false" id="thePage" controller="copado.CopadoSetupController" > 
+<apex:pageMessages id="theMessages" />
 	<c:WizardUtils id="cmpWizardUtilities" />
 	<style>
 		.main {width:100%;}
@@ -18,10 +19,10 @@
 	<apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/libs/jquery.min.1.10.2.js')}" />
 	<script type="text/javascript">
 		var setup = {
-			ns: '{!namespace}',
-			defaultType: '{!org0.copado__Org_Type__c}',
+			ns: '{!JSEncode(namespace)}',
+			defaultType: '{!JSEncode(org0.Org_Type__c)}',
 			myInterval: null,
-			fixedOAuthUrl: '{!fixedOAuthUrl}',
+			fixedOAuthUrl: '{!JSEncode(fixedOAuthUrl)}',
 
 			createOrg: function(){
 				var n = $copado('.js-org0-name').val();
@@ -76,9 +77,7 @@
 	</script>
 
 
-	<apex:form id="theForm">
-
-		<apex:pageMessages id="theMessages" />
+	<apex:form id="theForm" rendered="{!AND(!showError,showOptions)}">
 
 		<apex:pageBlock id="pb" title="" mode="edit">
 			<apex:pageBlockButtons location="bottom">
@@ -90,8 +89,15 @@
 				<apex:inputField value="{!org0.Name}" styleClass="js-org0-name" />
 				<apex:outputField value="{!org0.copado__Org_Type__c}" id="js-org0-type" />
 				<apex:pageMessage severity="INFO" strength="2" title="{!$Label.copado__attention_required}">
-				{!$Label.COPADO_ORG_SETUP_TIP_STEP_1} {!$User.Username}.<br />
-				{!$Label.COPADO_ORG_SETUP_TIP_STEP_2} 
+				{!$Label.COPADO_ORG_SETUP_TIP_STEP_1}   <br />
+
+				<ul>
+				  <li>{!$Label.COPADO_ORG_SETUP_ORG_ID} {!$Organization.Id} </li>
+				  <li>{!$Label.COPADO_ORG_SETUP_ORG_NAME} {!$Organization.Name} </li>
+				  <li>{!$Label.COPADO_ORG_SETUP_ORG_USERNAME} {!$User.Username} </li>
+				  <li>{!$Label.COPADO_ORG_SETUP_ORG_FULLNAME} {!$User.FirstName} {!$User.LastName}  </li>
+				</ul>  				
+				{!$Label.COPADO_ORG_SETUP_TIP_STEP_2}
 				</apex:pageMessage>
 				<apex:pageMessage id="msgPopBlock" severity="WARNING" strength="2" summary="{!$Label.copado__popup_blocker_message}" />
 				<apex:pageBlockSectionItem >

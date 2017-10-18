@@ -42,6 +42,7 @@
             <operator>equals</operator>
             <value>f</value>
         </criteriaItems>
+        <language>en_US</language>
     </filter>
     <format>Summary</format>
     <groupingsDown>

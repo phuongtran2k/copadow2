@@ -34,6 +34,10 @@
         <name>copado__Cancellation_Reason__c</name>
     </fields>
     <fields>
+        <label><!-- Classes Without Coverage --></label>
+        <name>copado__Classes_Without_Coverage__c</name>
+    </fields>
+    <fields>
         <label><!-- Close Date --></label>
         <name>copado__Close_Date__c</name>
     </fields>
@@ -63,6 +67,15 @@
         <label><!-- Epic --></label>
         <name>copado__Epic__c</name>
         <relationshipLabel><!-- User Stories --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- If checked, this user story will not be included in the count of user stories ahead and behind. --></help>
+        <label><!-- Exclude From CBM --></label>
+        <name>copado__Exclude_From_CBM__c</name>
+    </fields>
+    <fields>
+        <label><!-- Failing Methods --></label>
+        <name>copado__Failing_Methods__c</name>
     </fields>
     <fields>
         <label><!-- Functional Specifications --></label>
@@ -409,6 +422,10 @@
         <name>copado__Minimum_Apex_Code_Coverage__c</name>
     </fields>
     <fields>
+        <label><!-- Order --></label>
+        <name>copado__Order__c</name>
+    </fields>
+    <fields>
         <label><!-- Org Credential --></label>
         <name>copado__Org_Credential__c</name>
         <relationshipLabel><!-- User Stories (Org Credential) --></relationshipLabel>
@@ -510,6 +527,11 @@
         </picklistValues>
     </fields>
     <fields>
+        <help><!-- Check to Stop Indexing Metadata in Copado&apos;s Overlap Awareness. --></help>
+        <label><!-- Stop Indexing Metadata --></label>
+        <name>copado__Stop_Indexing_Metadata__c</name>
+    </fields>
+    <fields>
         <label><!-- Story Points Other --></label>
         <name>copado__Story_Points_Other__c</name>
     </fields>
@@ -529,6 +551,10 @@
     <fields>
         <label><!-- Total Story Points --></label>
         <name>copado__Total_Story_Points__c</name>
+    </fields>
+    <fields>
+        <label><!-- Triggers Without Coverage --></label>
+        <name>copado__Triggers_Without_Coverage__c</name>
     </fields>
     <fields>
         <label><!-- User Story Title --></label>
@@ -555,6 +581,18 @@
         <label><!-- So that... --></label>
         <name>copado__userStory_reason__c</name>
     </fields>
+    <recordTypes>
+        <label><!-- Bug --></label>
+        <name>Bug</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Investigation --></label>
+        <name>Investigation</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- User Story --></label>
+        <name>User_Story</name>
+    </recordTypes>
     <validationRules>
         <errorMessage><!-- A cancellation reason must be given. --></errorMessage>
         <name>copado__Cancellation_reason_required</name>
@@ -588,11 +626,23 @@
         <name>copado__Import_to_User_Story</name>
     </webLinks>
     <webLinks>
+        <label><!-- Manage_Selenium_Tests --></label>
+        <name>copado__Manage_Selenium_Tests</name>
+    </webLinks>
+    <webLinks>
         <label><!-- Mass_Add_User_Stories --></label>
         <name>copado__Mass_Add_User_Stories</name>
     </webLinks>
     <webLinks>
         <label><!-- Mass_Add_User_Stories_Sprint --></label>
         <name>copado__Mass_Add_User_Stories_Sprint</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Run_Static_Code_Analysis --></label>
+        <name>copado__Run_Static_Code_Analysis</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Static_Code_Analysis_Summary --></label>
+        <name>copado__Static_Code_Analysis_Summary</name>
     </webLinks>
 </CustomObjectTranslation>

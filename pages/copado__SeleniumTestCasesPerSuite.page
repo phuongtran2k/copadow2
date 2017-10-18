@@ -1,4 +1,4 @@
-<apex:page standardController="copado__Selenium_Test_Suite__c" extensions="copado.SeleniumTestCaseViewEdit">
+<apex:page standardController="copado__Selenium_Test_Suite__c" extensions="copado.SeleniumTestCaseViewEdit,copado.LicenseHelper">
 
     <apex:stylesheet value="{!URLFOR($Resource.copado__jqx,'jqwidgets/styles/jqx.base.css')}" />
     <apex:stylesheet value="{!URLFOR($Resource.copado__jqx,'jqwidgets/styles/jqx.fresh.css')}" />
@@ -222,7 +222,8 @@
     <apex:sectionHeader id="theHeader" title="{!$ObjectType.copado__Selenium_Test_Suite__c.Label}" subtitle="{!copado__Selenium_Test_Suite__c.Name}" description="{!$Label.copado__test_cases_per_suite_description}" />
     <apex:pageMessages />
 
-    <apex:pageMessage severity="WARNING" strength="2" summary="{!$Label.copado__selenium_not_enabled}" rendered="{!!and($Setup.copado__Settings__c.copado__Enabled_Multi_Licenses__c, $Setup.copado__Copado_License__c.copado__Enable_CST__c)}"></apex:pageMessage>
+    <!-- check that the feature is enabled, and the user has a license assigned -->
+    <apex:pageMessage severity="WARNING" strength="2" summary="{!possibleCSTErrorMsg}" rendered="{!!ISNULL(possibleCSTErrorMsg)}"></apex:pageMessage>
 
     <apex:form id="theForm" rendered="{!and($Setup.copado__Settings__c.copado__Enabled_Multi_Licenses__c, $Setup.copado__Copado_License__c.copado__Enable_CST__c)}">
         <apex:pageBlock id="pb" title="{!$Label.copado__add_remove_test_case_description}">

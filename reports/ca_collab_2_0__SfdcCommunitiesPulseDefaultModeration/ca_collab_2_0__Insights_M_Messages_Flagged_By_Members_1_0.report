@@ -49,6 +49,7 @@
             <operator>equals</operator>
             <value>03J</value>
         </criteriaItems>
+        <language>en_US</language>
     </filter>
     <format>Tabular</format>
     <name>Messages Flagged By Members</name>

@@ -10,4 +10,8 @@ global class JsRemotingController {
     global static String createAPIKey() {
         return null;
     }
+    @RemoteAction
+    global static List<String> getMetadataTypes(String orgId) {
+        return null;
+    }
 }

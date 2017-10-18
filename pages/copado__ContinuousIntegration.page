@@ -4,6 +4,7 @@
 		<script type="text/javascript">
             var $copado = jQuery.noConflict(), 
             __sfdcSessionId = '{!GETSESSIONID()}';
+            var Copado_Licenses = {!CurrentUserLicenses};
         </script>
         <script src="/soap/ajax/33.0/connection.js"></script>
         <c:ShowWebhook url="webhook/ci" recordId="{!copado__Continuous_Integration__c.Id}" />
@@ -13,10 +14,10 @@
 	<apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/libs/jquery.min.1.10.2.js')}" />
 	<apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/json2.js')}"/>
     <apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/jquery.cometd.js')}"/>
-    <apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/copadoStreamingService.js')}" />
-    <apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/statusManager.js')}" />
-    <apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/utils.js')}" />
-    <apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/JsRemoting.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.copadoStreamingService) }" />
+    <apex:includeScript value="{!URLFOR($Resource.statusManager) }" />
+    <apex:includeScript value="{!URLFOR($Resource.utils) }" />
+    <apex:includeScript value="{!URLFOR($Resource.JsRemoting) }"/>
     <c:IframeLocker url="" />
 	
 

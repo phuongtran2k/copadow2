@@ -1,4 +1,4 @@
-<apex:page id="thePage" showHeader="false" sidebar="false" standardController="copado__User_Story__c" extensions="copado.UserStoryApexTestResultsExtension">
+<apex:page id="thePage" showHeader="false" sidebar="false" standardController="copado__User_Story__c" extensions="copado.UserStoryApexTestResultsExtension,copado.Settings">
     <c:GAnalytics />
     <c:WizardUtils />
     <apex:form id="theForm" >
@@ -10,5 +10,6 @@
           'page': '/UserStoryApexTestResults',
           'title': 'User Story Apex Test Results'
         });
+    var Copado_Licenses = {!CurrentUserLicenses};     
     </script>
 </apex:page>

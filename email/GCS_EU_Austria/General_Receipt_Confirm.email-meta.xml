@@ -11,4 +11,5 @@
 Thank you,
 Monster Customer Service</textOnly>
     <type>html</type>
+    <uiType>Aloha</uiType>
 </EmailTemplate>

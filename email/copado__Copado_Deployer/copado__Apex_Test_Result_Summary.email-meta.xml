@@ -6,4 +6,5 @@
     <name>Apex Test Result Summary</name>
     <style>none</style>
     <type>visualforce</type>
+    <uiType>Aloha</uiType>
 </EmailTemplate>

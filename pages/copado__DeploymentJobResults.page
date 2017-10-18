@@ -10,9 +10,9 @@
         <apex:stylesheet value="{!URLFOR($Resource.copado__Statics,'css/screenLocker.css')}"/>
         <apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/libs/jquery.min.1.10.2.js')}" />
         <apex:includeScript value="{!URLFOR($Resource.copado__jqx,'jqwidgets/jqx-all.js')}" />
-        <apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/utilsV2.js')}"/>
-        <apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/JsRemoting.js')}" />
-        <apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/deploymentJobResults.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.utilsV2) }"/>
+        <apex:includeScript value="{!URLFOR($Resource.JsRemoting) }" />
+        <apex:includeScript value="{!URLFOR($Resource.deploymentJobResults) }" />
         <script> var $copado = jQuery.noConflict(); </script>
     </head>
     

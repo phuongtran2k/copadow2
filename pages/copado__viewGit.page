@@ -10,12 +10,13 @@
             return true;
         }
     </script>
-	<apex:form id="theForm" >
+    <apex:pageMessages id="theMessages" />
+	<apex:form id="theForm" rendered="{!AND(showOptions,!showError)}" >
         <apex:actionFunction name="doRetrieve" action="{!retrieveCommits}" reRender="theMessages">
             <apex:param name="branch" value=""/>
         </apex:actionFunction>
 	<apex:sectionHeader title="{!$ObjectType.copado__Git_Repository__c.Label}" subtitle="{!git.Name}"/>
-		<apex:pageMessages id="theMessages" />        
+     
 		<apex:pageBlock id="pb_createGit" mode="view" helpUrl="http://docs.copa.do/copado/git-repository" helpTitle="{!$Label.copado__help_for_this_page}">
 			<apex:pageblockButtons >
                 <apex:commandButton value="{!$Label.site.edit}" action="{!edit}" />
@@ -96,5 +97,5 @@
             </apex:pageBlockSection>
         </apex:pageBlock>
      </apex:form>
-     <apex:relatedList list="Git_Backups__r" />
+     <apex:relatedList list="Git_Backups__r" rendered="{!AND(showOptions,!showError)}"/>
 </apex:page>

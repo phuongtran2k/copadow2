@@ -16,20 +16,31 @@
         <script type="text/javascript">
             var $copado = jQuery.noConflict(), 
             __sfdcSessionId = '{!GETSESSIONID()}';
+            var Copado_Licenses = {!CurrentUserLicenses};
         </script>
         <script src="/soap/ajax/32.0/connection.js"></script>
 
-        <apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/copadoStreamingService.js')}" />
-        <apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/statusManager.js')}" />
-        <apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/utilsV2.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.copadoStreamingService) }" />
+        <apex:includeScript value="{!URLFOR($Resource.statusManager) }" />
+        <apex:includeScript value="{!URLFOR($Resource.utilsV2) }"/>
         <script type="text/javascript" src="{!URLFOR($Resource.Statics,'js/jszip.js')}" />
         
         <apex:stylesheet value="{!URLFOR($Resource.copado__Statics,'css/DiffView.css')}" />
         <script type="text/javascript" src="{!URLFOR($Resource.Statics,'js/difflib.js')}" />
         <script type="text/javascript" src="{!URLFOR($Resource.Statics,'js/diffview.js')}" />
-        <script type="text/javascript" src="{!URLFOR($Resource.Statics,'js/utilsV2.js')}" />
-        <script type="text/javascript" src="{!URLFOR($Resource.Statics,'js/snapshotDifferences.js')}" />
-            
+        <script type="text/javascript" src="{!URLFOR($Resource.utilsV2) }" />
+        <script type="text/javascript" src="{!URLFOR($Resource.metadataGrid2) }" />
+        <script type="text/javascript" src="{!URLFOR($Resource.snapshotDifferences) }" />
+        <style type="text/css">
+            @keyframes flash {
+                from {background-color: #03a9ff;}
+                to {background-color: #f2f3f3;}
+            }
+            @keyframes remove {
+                from {background-color: #f44274;}
+                to {background-color: #f2f3f3;}
+            }
+        </style> 
         <script type="text/javascript"> 
             function openLookup(baseURL, width, modified, searchParam){
                 var originalbaseURL = baseURL;
@@ -42,7 +53,7 @@
             
                 var isCustomLookup = false;
         
-                if(lookupType == "{!keyPrefix}"){
+                if(lookupType == "{!JSENCODE(keyPrefix)}"){
                     var urlArr = baseURL.split("&");
                     var txtId = '';
                     if(urlArr.length > 2) {
@@ -83,15 +94,15 @@
             var loadingHTML = '<center><img src="/img/loading.gif" /> <i>'+copadoLabels.loading+'<span id="retry-label"></span></i></center>';
             var _config = {
                 data:{
-                    id: '{!copado__Snapshot_Difference__c.Id}',
-                    orgId: '{!copado__Snapshot_Difference__c.copado__Source_Org_Credential__c}',
-                    isPartialDiff: {!copado__Snapshot_Difference__c.copado__Partial_Selection__c}
+                    id: '{!JSENCODE(Snapshot_Difference__c.Id)}',
+                    orgId: '{!JSENCODE(Snapshot_Difference__c.Source_Org_Credential__c)}',                    
+                    isPartialDiff: ('{!JSENCODE(IF(Snapshot_Difference__c.Partial_Selection__c,'true','false'))}' == 'true')
                 },
                 server: {
-                    metadataUrl: '{!urlBase}metadata/__ORGID__{!urlParameters}&parentId=__ORGID__&dates=format',
-                    typesUrl: '{!urlBase}gitTypes{!urlParameters}'
+                    metadataUrl: '{!JSENCODE(urlBase)}metadata/__ORGID__{!JSENCODE(urlParameters)}&parentId=__ORGID__&dates=format',
+                    typesUrl: '{!JSENCODE(urlBase)}gitTypes{!JSENCODE(urlParameters)}'
                 },
-                ns: '{!namespace}',
+                ns: '{!JSENCODE(namespace)}',
                 attachmentName: 'MetaData',
                 viewType: 0,
                 contextSize: 10,
@@ -156,7 +167,7 @@
         
                     //get selected from grid
                     var obj = me.getSelectedItems();
-        
+                    
                     if(!obj.length){
                         alert('Select first at least one item to save.');
                         return false;
@@ -178,7 +189,7 @@
         
                     var me = copadoApp;
                     me.data.index = res;
-        
+                    
                     var source2 = {
                         localdata: res,
                         datafields: [
@@ -262,37 +273,10 @@
                         localization: localizationobj,
                         columns: [
                             {text:copadoLabels.selected, columntype:'checkbox', filtertype:'bool', datafield:'s', width:60},
-                            {text:'{!$ObjectType.Step__c.Fields.Status__c.Label}', filtertype:'checkedlist', datafield:'d', width:120, cellsrenderer:cellsrenderer},
+                            {text:'{!$ObjectType.Step__c.Fields.Status__c.Label}', filtertype:'checkedlist', datafield:'d', width:120, editable: false, cellsrenderer:cellsrenderer},
                             {text:copadoLabels.name, filtertype:'textbox', filtercondition:'contains', editable:false, datafield:'f', cellsrenderer:cellsrendererView}
                         ]
                     });
-                    var selectAll = function(sel){
-                        $grid2.jqxGrid('beginupdate');
-                        var list = $grid2.jqxGrid('getrows');
-                        for(var i in list){
-                            source2.localdata[ list[i].dataindex || i ].s = sel;
-                        }
-                    
-                        $grid2.jqxGrid('endupdate');
-                        copadoApp.isDirty = true; // NR
-                        setTimeout(function(){$grid2.jqxGrid('updatebounddata','cells');},222);
-                    },
-                    
-                    $unselectAll = $copado('<button>Unselect All</button>').
-                        on('click',function(e){
-                            e.preventDefault();
-                            selectAll(false);
-                        }),
-                    
-                    $selectAll = $copado('<button>Select All</button>').
-                        on('click',function(e){
-                            e.preventDefault();
-                            selectAll(true);
-                        });
-               
-                    $copado('.jqx-grid-pager > div')
-                        .prepend($unselectAll)
-                        .prepend($selectAll);
                     unlockScreen();
                 },
                 runDeepDiff: function(){
@@ -305,7 +289,6 @@
                     }
                     
                     var selectedItemsInGrid = snapshotDifferences.getSelectedElementList();
-                    console.log('selectedItemsInGrid', selectedItemsInGrid);
                     if(_config.data.isPartialDiff && selectedItemsInGrid.length === 0) {
                         alert('You must select at least one item on the Selections for Difference Calculation grid first.');
                         return false;
@@ -334,12 +317,12 @@
                     }
                 },
                 getIndexFileAttachment: function(cb){
-                    if(typeof cb != "undefined" || cb!=null){
-                        console.log('get attachments');
-                        var attachment = dw.u.getDecodedAttach(copadoApp.data.Id,'index.json');
-                        if(attachment!=null){
-                            cb && cb($copado.parseJSON(attachment.Body));
-                        }
+                    var attachment = dw.u.getDecodedAttach(copadoApp.data.Id,'index.json');
+                    if(attachment!=null){
+                        cb && cb($copado.parseJSON(attachment.Body));
+                    }else{
+                        console.warn("no attach?");
+                        cb && cb([]);
                     }
                 },
         
@@ -374,18 +357,21 @@
                     var me = copadoApp;
                     
                     if(_config.data.isPartialDiff){
-                        snapshotDifferences.init(_config);
+                        snapshotDifferences.init(_config,false,{!scalableGrid});
                     }
                     
                     me.data.Id = opt.Id;
         
-                    console.debug('opt.hasRun', opt.hasRun);
+                    console.debug('opt.hasRun', opt.hasRun, me.data);
                     
                     if(opt.hasRun === "true"){
                         $copado('#sectionDiv').show();
                         me.initList();
                         me.bind();
-                    }            
+                    }
+                    /*window.setTimeout(function() {
+                        snapshotDifferences.loadData(null, function() {console.warn('ya!');});
+                    }, 5000)*/
                 },
         
                 /**
@@ -402,9 +388,11 @@
                     var att = dw.u.getAttach(parentId,attachName);
                     
                     if(!att.length)return '';
-                    console.log('prepare ZIP file: ' + attachName);
+                    console.log('prepare ZIP file: ' + attachName,fileName);
                     var zip = new JSZip(att[0].Body,{base64:true});
-                    console.log('reading zipped file body: ' + fileName + '@' + attachName);
+                    //console.log('zip...',zip,zip.file('aura/'fileName)); //delete this log
+                    //console.log('reading zipped file body: ' + fileName + '@' + attachName);
+                    if(fileName.endsWith('/')) fileName = fileName+'PathTest.cmp'
                     return zip.file(fileName).asText()
                 },
         
@@ -545,10 +533,8 @@
     <c:ScreenLocker msg="{!$Label.copado__loading}" />
     <div id="body">
         <apex:sectionHeader id="sectionHeader" title="{!$ObjectType.copado__Snapshot_Difference__c.Label}" subtitle="{!IF(ISBLANK(copado__Snapshot_Difference__c.Name),$Label.copado__new+' '+$ObjectType.copado__Snapshot_Difference__c.Label, copado__Snapshot_Difference__c.Name)}" />
-
-        <apex:form id="theForm">
-        
-            <apex:pageMessages id="theMessages" />
+        <apex:pageMessages id="theMessages" />
+        <apex:form id="theForm" rendered="{!AND(showOptions,!showError)}">          
             
             <apex:pageBlock id="pb_edit" rendered="{!isEdit}" mode="edit">
                 <apex:pageblockButtons rendered="{!isSnapshotEnabled}">
@@ -626,14 +612,37 @@
                             <input id="btnSelectionsSave" class="btn" onclick="snapshotDifferences.save();return false;" type="button" value="{!$Label.site.save}" style="display:none;"/>
                             <input id="btnSelectionsCancel" class="btn" onclick="snapshotDifferences.cancel();return false;" type="button" value="{!$Label.site.cancel}" style="display:none;"/>
 
-                            <div id="removeCacheContainer" style="float:right;">
+                            <div id="removeCacheContainer">
                                 <a style="display:none;" onclick="return snapshotDifferences.refreshCache();" id="removeCache" >{!$Label.CACHE_REFRESHED_NOW}</a>
                             </div>
                         </div>
-                        <div id="jqxGrid">
-                            <center><img src="/img/loading.gif" /> <i>{!$Label.copado__loading}<span id="retry-label"></span></i></center>
+
+                        <apex:outputPanel layout="none">
+                        <div id="metadataGrid2">
+                            <div class='mg2_tabs'>
+                              <ul style="margin-left: 20px;">
+                                <li>Metadata Selection</li>
+                                <li>Selected Metadata</li>
+                              </ul>
+                              
+                              <div><!-- div required for jqxTabs -->
+                              <div class="mg2_scaleFilterFrame" style="padding: 5px;">
+                                <label class="mg2_mtFilter">Metadata Type Filter</label>&nbsp;
+                                <apex:commandLink value="({!$Label.copado__refresh})"  onclick="return metadataGrid2.refreshMetadataTypes();" rerender="opDummy" id="removeMTCache"/>
+                                <div class="mg2_scaleFilter" style="margin-bottom: 10px;"></div>
+                              </div>
+                              </div>
+
+                              <div><!-- empty div, needed as content for the two tabs --></div>
+                            </div>
+                            <div class="mg2_jqxgrid" >
+                             <center><img src="/img/loading.gif" /><i><span id="retry-label">{!$Label.copado__loading}</span></i></center>
+                            </div>
                         </div>
+                     </apex:outputPanel>
+                    
                     </apex:outputPanel>
+
                 </apex:pageBlockSection>
                 
                 <div id="sectionDiv" style="display:none;">
@@ -649,14 +658,14 @@
 
                 <script type="text/javascript">
                     $copado(document).ready(function(){
-                        copadoStreamingService.ns = '{!settings.namespace}';
+                        copadoStreamingService.ns = '{!JSENCODE(settings.namespace)}';
                         copadoStreamingService.init();
-                        console.log('streaming services should be initialised...');
-                        statusManager.ns = '{!settings.namespace}';
-                        statusManager.herokuServer = '{!settings.herokuServer}';
-                        statusManager.urlParameters = '{!settings.urlParameters}';
+                        console.log('streaming services should be initialised...',{!scalableGrid});
+                        statusManager.ns = '{!JSENCODE(settings.namespace)}';
+                        statusManager.herokuServer = '{!JSENCODE(settings.herokuServer)}';
+                        statusManager.urlParameters = '{!JSENCODE(settings.urlParameters)}';
                         statusManager.sessionId = __sfdcSessionId;
-                        statusManager.parentId = '{!copado__Snapshot_Difference__c.Id}';
+                        statusManager.parentId = '{!JSENCODE(copado__Snapshot_Difference__c.Id)}';
                         statusManager.parentId2 = _config.data.orgId; // statusManager needs to monitor an additional state, associated with the orgId
                         statusManager.initFunction = copadoApp.init({
                                     Id: '{!copado__Snapshot_Difference__c.Id}',
@@ -664,9 +673,7 @@
                                 });
                         statusManager.successFunction = copadoApp.onSuccess;
                         window.onbeforeunload = copadoStreamingService.disconnect;
-                        setTimeout(function(){
-                            statusManager.initialise();
-                        },2000);
+                        statusManager.initialise();
                         $copado('#contextSelector').val(_config.contextSize);
                         $copado('#viewTypeSelector').val(_config.viewType);
                     });

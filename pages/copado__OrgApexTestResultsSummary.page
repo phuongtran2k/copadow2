@@ -6,6 +6,7 @@
         <script type="text/javascript">
             var $copado = jQuery.noConflict(), 
             __sfdcSessionId = '{!GETSESSIONID()}';
+            var Copado_Licenses = {!CurrentUserLicenses};
         </script>
         <script src="/soap/ajax/33.0/connection.js"></script>
         <link rel="stylesheet" href="{!URLFOR($Resource.Statics,'css/ApexTestResult.css')}" />
@@ -26,11 +27,11 @@
             }
         </style>
     </head>
-    <apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/utils.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.utils) }" />
 
     <script>
         var copadoApp = copadoApp || {
-            orgId: '{!Org__c.Id}'
+            orgId: '{!JSENCODE(Org__c.Id)}'
            
         };
         
@@ -109,7 +110,7 @@
 
     <script type="text/javascript">
         var apexTestResult = {
-            ns: '{!namespace}',
+            ns: '{!JSENCODE(namespace)}',
             attachmentBody: '',
             userStoryClassesArray: [],
             userStoryTriggersArray: [],

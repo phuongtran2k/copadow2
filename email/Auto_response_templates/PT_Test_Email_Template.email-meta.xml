@@ -7,4 +7,5 @@
     <style>none</style>
     <subject>Subject for test email template</subject>
     <type>text</type>
+    <uiType>Aloha</uiType>
 </EmailTemplate>

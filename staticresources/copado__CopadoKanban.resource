@@ -327,6 +327,8 @@ CopadoKanban.doGenerateStatusList = function (rec, fromSource, callback) {
     // If we need to retrieve the statuses from a SOQL query...
     if (fromSource === 'Columns_SOQL__c') {
         try {
+            console.log('query str',rec.Columns_SOQL__c);
+            console.log('rec',rec);
             var result = sforce.connection.query(rec.Columns_SOQL__c);
             var it = new sforce.QueryResultIterator(result);
             while (it.hasNext()) {
@@ -538,7 +540,7 @@ CopadoKanban.UI.initializeAfterLoadingData = function (callback) {
         source: dataAdapter,
         template: "<div class='jqx-kanban-item' id=''>"
         + "<div class='jqx-kanban-item-content' ></div>"
-        + "<div class='jqx-kanban-template-icon' onmouseover=\"this.id=('lookup'+this.parentNode.id.replace('kanban_','')); LookupHoverDetail.getHover('lookup'+this.parentNode.id.replace('kanban_',''), '/'+this.id.replace('lookup','')+'/m?isAjaxRequest=1').show();\" onmouseout=\"LookupHoverDetail.getHover('lookup'+this.parentNode.id.replace('kanban_','')).hide();\">&#x26A1;</div>"
+        + "<div class='jqx-kanban-template-icon' onmouseover=\"this.id=('lookup'+this.parentNode.id.replace('kanban_','')); LookupHoverDetail.getHover('lookup'+this.parentNode.id.replace('kanban_',''), '/'+this.id.replace('lookup','')+'/m?isAjaxRequest=1').show();\" onmouseout=\"LookupHoverDetail.getHover('lookup'+this.parentNode.id.replace('kanban_','')).hide();\"><a class='usLink' style='text-decoration: none' href=''>&#x26A1;</a></div>"
         + "<div class='jqx-kanban-item-text'></div>"
         + "</div>",
         templateContent: {status: "", text: "", content: "", tags: "", color: "", resourceId: 0, className: ""},
@@ -639,7 +641,7 @@ CopadoKanban.UI.initializeForm = function (callback) {
         allowDrop: true,
         allowDrag: true,
         source: dataAdapterSel,
-        width: 200,
+        width: 300,
         height: 250,
         theme: theme,
         checkboxes: true,
@@ -683,9 +685,11 @@ CopadoKanban.UI.doGenerateStatusList = function (fromSource, doClearAll) {
     }
 
     var getValue = function (name) {
-        var t = document.getElementById(CopadoKanban.UI.elts[name]);
+        //var t = document.getElementById(CopadoKanban.UI.elts[name]);
+        var t = $("[data-id$="+name+"]")
         console.assert(t, 'Element CopadoKanban.UI.elts.' + name + 'not found');
-        return t.value;
+        //return t.value;
+        return t.val();
     };
     var rec = {
         Columns_SOQL__c: getValue('Columns_SOQL__c'),
@@ -711,8 +715,10 @@ CopadoKanban.UI.doValidateForm = function () {
     CopadoKanban.UI.clearErrors();
 
     var getValue = function (name) {
-        var t = document.getElementById(CopadoKanban.UI.elts[name]);
-        return t ? t.value : null;
+        var t = $("[data-id$="+name+"]")
+        //var t = document.getElementById(CopadoKanban.UI.elts[name]);
+        //return t ? t.value : null;
+        return t ? t.val() : null;
     };
     var rec = {
         SOQL_Query__c: getValue('SOQL_Query__c'),

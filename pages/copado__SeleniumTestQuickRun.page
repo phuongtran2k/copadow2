@@ -1,9 +1,10 @@
-<apex:page controller="copado.SeleniumTestQuickRun" action="{!quickRun}" tabStyle="copado__Selenium_Test_Run__c" id="thePage">
+<apex:page controller="copado.SeleniumTestQuickRun" tabStyle="copado__Selenium_Test_Run__c" extensions="copado.LicenseHelper" id="thePage">
 
     <apex:sectionHeader id="theHeader" title="Copado Selenium Testing" subtitle="{!IF(mode=='create', $Label.copado__create_selenium_settings, suite.Name)}" />
-	
-    <apex:pageMessage severity="WARNING" strength="2" summary="{!$Label.copado__selenium_not_enabled}" rendered="{!!and($Setup.copado__Settings__c.copado__Enabled_Multi_Licenses__c, $Setup.copado__Copado_License__c.copado__Enable_CST__c)}"></apex:pageMessage>
-    
+
+    <!-- check that the feature is enabled, and the user has a license assigned -->
+    <apex:pageMessage severity="WARNING" strength="2" summary="{!possibleCSTErrorMsg}" rendered="{!!ISNULL(possibleCSTErrorMsg)}"></apex:pageMessage>
+
     <c:GAnalytics />
     
     <apex:form id="theForm" rendered="{!and($Setup.copado__Settings__c.copado__Enabled_Multi_Licenses__c, $Setup.copado__Copado_License__c.copado__Enable_CST__c)}">
@@ -43,9 +44,15 @@
             </apex:outputPanel>
 
         </apex:pageBlock>
+        <apex:actionFunction name="doInit" action="{!quickRun}" reRender="theForm"/>
+
     </apex:form>
-	
+    
     <script>
+           window.onload=function(){
+                doInit();
+           }
+
         ga('send', 'pageview', {
             'page': '/SeleniumTestQuickRun',
             'title': 'Selenium Test Quick Run'

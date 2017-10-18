@@ -420,13 +420,31 @@
         <fields>copado__Metadata_API_Name__c</fields>
         <relatedList>copado__User_Story_Metadata__c.copado__User_Story__c</relatedList>
     </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>copado__Pull_Request__c.copado__User_Story__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>copado__External_CI_Setting__c</fields>
+        <fields>copado__Job_Api_Name__c</fields>
+        <fields>copado__Invoke_on__c</fields>
+        <fields>copado__Continue_on_failure__c</fields>
+        <fields>copado__Timeout_in_minutes__c</fields>
+        <fields>copado__Environment__c</fields>
+        <relatedList>copado__External_CI_Job__c.copado__User_Story__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>copado__External_CI_Job_Result__c.copado__User_Story__c</relatedList>
+    </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>
     <showInteractionLogPanel>false</showInteractionLogPanel>
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h0Y000000l6Vv</masterLabel>
+        <masterLabel>00h0a00000Bqwh1</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

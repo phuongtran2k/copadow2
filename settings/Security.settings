@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SecuritySettings xmlns="http://soap.sforce.com/2006/04/metadata">
-    <networkAccess/>
+    <networkAccess>
+        <ipRanges>
+            <description>Github 2</description>
+            <end>192.30.252.22</end>
+            <start>192.30.252.22</start>
+        </ipRanges>
+        <ipRanges>
+            <description>Github 1</description>
+            <end>192.30.252.0</end>
+            <start>192.30.252.0</start>
+        </ipRanges>
+        <ipRanges>
+            <description>Github 4</description>
+            <end>185.199.108.22</end>
+            <start>185.199.108.22</start>
+        </ipRanges>
+        <ipRanges>
+            <description>Github 3</description>
+            <end>185.199.108.0</end>
+            <start>185.199.108.0</start>
+        </ipRanges>
+        <ipRanges>
+            <description>Copado 1</description>
+            <end>54.88.136.216</end>
+            <start>54.88.136.216</start>
+        </ipRanges>
+        <ipRanges>
+            <description>Copado 2</description>
+            <end>54.84.188.199</end>
+            <start>54.84.188.199</start>
+        </ipRanges>
+    </networkAccess>
     <passwordPolicies>
         <complexity>AlphaNumeric</complexity>
         <expiration>NinetyDays</expiration>
@@ -29,8 +60,11 @@
         <enforceIpRangesEveryRequest>false</enforceIpRangesEveryRequest>
         <forceLogoutOnSessionTimeout>false</forceLogoutOnSessionTimeout>
         <forceRelogin>false</forceRelogin>
+        <identityConfirmationOnTwoFactorRegistrationEnabled>true</identityConfirmationOnTwoFactorRegistrationEnabled>
         <lockSessionsToDomain>false</lockSessionsToDomain>
         <lockSessionsToIp>false</lockSessionsToIp>
+        <requireHttpOnly>false</requireHttpOnly>
+        <requireHttps>true</requireHttps>
         <securityCentralKillSession>true</securityCentralKillSession>
         <sessionTimeout>TwoHours</sessionTimeout>
     </sessionSettings>

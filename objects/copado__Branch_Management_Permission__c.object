@@ -47,6 +47,7 @@
     <description>This object stores the permissions relating to a user per environment</description>
     <enableActivities>false</enableActivities>
     <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
@@ -69,7 +70,7 @@
         <externalId>false</externalId>
         <label>Environment</label>
         <referenceTo>copado__Environment__c</referenceTo>
-        <relationshipLabel>Branch Management Permissisions</relationshipLabel>
+        <relationshipLabel>Branch Management Permissions</relationshipLabel>
         <relationshipName>Branch_Management_Permissisions</relationshipName>
         <relationshipOrder>0</relationshipOrder>
         <reparentableMasterDetail>false</reparentableMasterDetail>
@@ -96,7 +97,7 @@
         <label>Branch Management Permission Ref</label>
         <type>AutoNumber</type>
     </nameField>
-    <pluralLabel>Branch Management Permissisions</pluralLabel>
+    <pluralLabel>Branch Management Permissions</pluralLabel>
     <searchLayouts/>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>

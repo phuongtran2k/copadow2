@@ -23,7 +23,7 @@
             <br />
             <script type="text/javascript">
             if(copado_api_key) {
-                document.write('<a id="copadoRecorderExtensionNotInstalled1" href="copado:setupext/'+copado_api_key+'/{!$Organization.Name}" class="btn">{!$Label.SELENIUM_GETTING_STARTED_BIND}</a>');
+                document.write('<a id="copadoRecorderExtensionNotInstalled1" href="copado:setupext/'+copado_api_key+'/{!JSENCODE($Organization.Name)}" class="btn">{!$Label.SELENIUM_GETTING_STARTED_BIND}</a>');
             }else{
                 document.write('<a id="copadoRecorderExtensionNotInstalled1" href="{!$Page.appHome}" class="btn">{!$Label.SELENIUM_GETTING_STARTED_APIKEY}</a>');
             }

@@ -7,4 +7,5 @@
     <name>New Idea Created</name>
     <style>none</style>
     <type>visualforce</type>
+    <uiType>Aloha</uiType>
 </EmailTemplate>

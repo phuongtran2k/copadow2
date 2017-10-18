@@ -47,6 +47,7 @@
     <description>This objects gathers information on the post and comments before these being inserted. The purpose of this object is to identify the user input and the system output (These are the same except that the  &quot;Substitute banned words with characters&quot; option is enabled).</description>
     <enableActivities>false</enableActivities>
     <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableReports>false</enableReports>

@@ -66,8 +66,8 @@
 
         		var copadoAppLogic = {};
         		copadoAppLogic.data = {};
-        		copadoAppLogic.data.ns = '{!namespace}';
-        		copadoAppLogic.data.permissionSetName = '{!copado__Persona_Permission__c.copado__Permission_Set_Name__c}';
+        		copadoAppLogic.data.ns = '{!JSENCODE(namespace)}';
+        		copadoAppLogic.data.permissionSetName = '{!JSENCODE(Persona_Permission__c.Permission_Set_Name__c)}';
         		copadoAppLogic.data.PermissionSets = {};
         
         		copadoAppLogic.save = function(){
@@ -82,12 +82,12 @@
                         _record[copadoAppLogic.data.ns+'Permission_Set_Name__c'] = copadoAppLogic.data.perssionSetName;
                         try{
                         	if(_record.Id==''){
-                            	_record[copadoAppLogic.data.ns+'Persona__c'] = '{!copado__Persona_Permission__c.copado__Persona__c}';
+                            	_record[copadoAppLogic.data.ns+'Persona__c'] = '{!JSENCODE(Persona_Permission__c.Persona__c)}';
                             }
                             result = (_record.Id=='')?sforce.connection.create([_record]) : sforce.connection.update([_record]);
                             if(result[0].getBoolean("success")){
                                 console.log("save success " + result[0]);
-                                window.location.href = '/{!copado__Persona_Permission__c.copado__Persona__c}';
+                                window.location.href = '/{!JSENCODE(Persona_Permission__c.Persona__c)}';
                             }
                             else{
                                 console.log("save failed " + result[0]);

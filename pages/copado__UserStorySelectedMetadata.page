@@ -7,11 +7,12 @@
         <apex:includeScript value="{!URLFOR($Resource.copado__jqx,'jqwidgets/jqx-all.js')}" />
 
         <link rel="stylesheet" href="{!URLFOR($Resource.Statics,'css/wizard.css')}" />
-	    <apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/utilsV2.js')}"/>
-        <apex:includeScript value="{!URLFOR($Resource.copado__CopadoChangeManagement, 'Assets/js/UserStorySelectedMetadata.js')}"/>
+	    <apex:includeScript value="{!URLFOR($Resource.utilsV2) }"/>
+        <apex:includeScript value="{!URLFOR($Resource.UserStorySelectedMetadata) }"/>
         <script>
             var __sfdcSessionId = '{!GETSESSIONID()}';
             var $copado = jQuery.noConflict();
+            var Copado_Licenses = {!CurrentUserLicenses};
         </script>
         <script id="connectionJS" src="/soap/ajax/30.0/connection.js"></script>
     </head>
@@ -30,13 +31,13 @@
         <script>
             var _config = {
                 data:{
-                    userStoryId: '{!User_Story__c.Id}',
+                    userStoryId: '{!JSENCODE(User_Story__c.Id)}',
                     hasError: {!hasError},
                 },
                 server: {
-                    USgitMetadataUrl: '{!urlBase}userStoryGitMetadata/__USERSTORYID__{!urlParameters}&repositoryId=__repoId__&branch=__branch__'
+                    USgitMetadataUrl: '{!JSENCODE(urlBase)}userStoryGitMetadata/__USERSTORYID__{!JSENCODE(urlParameters)}&repositoryId=__repoId__&branch=__branch__'
                 },
-                ns: '{!namespace}'
+                ns: '{!JSENCODE(namespace)}'
             };
             var copadoApp = {
                 init: function(){

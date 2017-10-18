@@ -12,20 +12,21 @@
         <script type="text/javascript">
             var $copado = jQuery.noConflict(), 
             __sfdcSessionId = '{!GETSESSIONID()}';
+            var Copado_Licenses = {!CurrentUserLicenses};
         </script>
         <script src="/soap/ajax/32.0/connection.js"></script>
         
         <apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/json2.js')}"/>
         <apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/jquery.cometd.js')}"/>
    
-        <apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/copadoStreamingService.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.copadoStreamingService) }" />
         
     </head>
     <body>
         <script>
             copadoApp = {
                 ns: '{!namespace}',
-                deploymentId: '{!Deployment__c.Id}',
+                deploymentId: '{!JSENCODE(Deployment__c.Id)}',
                 deployment: [],
                 jobIds: [],
                 streamingAPI_clientId: '',
@@ -217,8 +218,7 @@
                         requestHeaders: {
                                 "Content-Type": "text/json",
                                 "userId": _temp_conf.userId,
-                                "orgId": _temp_conf.orgId,
-                                "sessionId": _temp_conf.sessionId,
+                                "orgId": _temp_conf.orgId,                                
                                 "token": _temp_conf.token
                         },
                         method: "GET",
@@ -316,7 +316,7 @@
         </apex:form>
         <script>
             $copado( document ).ready(function() {
-                copadoStreamingService.ns = '{!namespace}';
+                copadoStreamingService.ns = '{!JSENCODE(namespace)}';
                 copadoStreamingService.init();
                 $copado.cometd.subscribe('/topic/CopadoNotifications', function(message) {
                     console.info('Push message: ', message);

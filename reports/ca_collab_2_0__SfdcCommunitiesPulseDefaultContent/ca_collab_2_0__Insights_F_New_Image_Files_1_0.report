@@ -32,6 +32,7 @@
             <operator>equals</operator>
             <value>gif,jpg,png,tif</value>
         </criteriaItems>
+        <language>en_US</language>
     </filter>
     <format>Tabular</format>
     <name>New Image Files</name>

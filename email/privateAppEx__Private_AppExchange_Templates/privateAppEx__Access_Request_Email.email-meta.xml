@@ -7,4 +7,5 @@
     <name>Access Request Email</name>
     <style>none</style>
     <type>visualforce</type>
+    <uiType>Aloha</uiType>
 </EmailTemplate>

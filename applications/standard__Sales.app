@@ -12,7 +12,6 @@
     <tab>standard-report</tab>
     <tab>standard-Dashboard</tab>
     <tab>standard-Product2</tab>
-    <tab>standard-Forecasting3</tab>
     <tab>Order_Summary__c</tab>
     <tab>Customer_Interest__c</tab>
 </CustomApplication>

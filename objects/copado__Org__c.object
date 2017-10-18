@@ -46,6 +46,7 @@
     <deprecated>false</deprecated>
     <enableActivities>false</enableActivities>
     <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
     <enableEnhancedLookup>false</enableEnhancedLookup>
     <enableFeeds>false</enableFeeds>
     <enableHistory>true</enableHistory>
@@ -382,6 +383,21 @@
         <unique>false</unique>
     </fields>
     <label>Org Credential</label>
+    <listViews>
+        <fullName>My_Credentials</fullName>
+        <columns>NAME</columns>
+        <columns>copado__Org_Type__c</columns>
+        <columns>copado__Username__c</columns>
+        <columns>copado__SFDC_Org_ID__c</columns>
+        <columns>copado__Test_Frequency__c</columns>
+        <columns>copado__Validated_Date__c</columns>
+        <columns>copado__Validated_Status__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>copado__Last_Git_Backup_Status__c</columns>
+        <columns>copado__Last_Apex_Tests_Status__c</columns>
+        <filterScope>Mine</filterScope>
+        <label>My Credentials</label>
+    </listViews>
     <listViews>
         <fullName>copado__All</fullName>
         <columns>NAME</columns>

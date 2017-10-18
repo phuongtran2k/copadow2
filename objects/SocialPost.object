@@ -106,6 +106,10 @@
         <fullName>Headline</fullName>
     </fields>
     <fields>
+        <fullName>HiddenById</fullName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
         <fullName>InboundLinkCount</fullName>
     </fields>
     <fields>

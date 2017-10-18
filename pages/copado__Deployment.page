@@ -1,11 +1,24 @@
 <apex:page showHeader="true" sidebar="false" standardController="copado__Deployment__c" extensions="copado.DeploymentExt,copado.Settings,copado.JsRemotingController" docType="html-5.0" id="thePage">
-
+<apex:pageMessages id="theMessages" />
+<apex:outputPanel layout="block" rendered="{!AND(showOptions,!showError)}">
     <head>
+        <style type="text/css">
+            @keyframes flash {
+                from {background-color: #03a9ff;}
+                to {background-color: #f2f3f3;}
+            }
+            @keyframes remove {
+                from {background-color: #f44274;}
+                to {background-color: #f2f3f3;}
+            }
+        </style>
         <c:GAnalytics />
 		<c:ShowWebhook url="webhook/deploy" recordId="{!copado__Deployment__c.Id}" />
         <apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/Cometd.js')}"/>
         <apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/libs/jquery.min.1.10.2.js')}" />
         <apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/libs/jquery.easytabs.min.js')}" />
+        <script type="text/javascript" src="{!URLFOR($Resource.metadataGrid2) }" />
+        <apex:stylesheet value="{!URLFOR($Resource.copado__SLDS, 'assets/styles/salesforce-lightning-design-system-vf.min.css')}" />
         <script type="text/javascript">
         /* NR: NOTE this replaced the apex:includeScript that was not working. */
 !function(d,B,m,l){function v(a,b){var c=Math.max(0,a[0]-b[0],b[0]-a[1]),e=Math.max(0,a[2]-b[1],b[1]-a[3]);return c+e}function w(a,b,c,e){var h=a.length;e=e?"offset":"position";for(c=c||0;h--;){var f=a[h].el?a[h].el:d(a[h]),k=f[e]();k.left+=parseInt(f.css("margin-left"),10);k.top+=parseInt(f.css("margin-top"),10);b[h]=[k.left-c,k.left+f.outerWidth()+c,k.top-c,k.top+f.outerHeight()+c]}}function p(a,b){var c=b.offset();return{left:a.left-c.left,top:a.top-c.top}}function x(a,b,c){b=[b.left,b.top];c=
@@ -28,8 +41,9 @@ getContainerGroup:function(a){var b=d.data(this.items[a],"subContainers");if(b==
 !1})},disable:function(){this.traverse(function(a){a.disabled=!0})},serialize:function(){return this._serialize(this.el,!0)},refresh:function(){this.traverse(function(a){a._clearDimensions()})},destroy:function(){this.traverse(function(a){a._destroy()})}};d.extend(t.prototype,u);d.fn[m]=function(a){var b=Array.prototype.slice.call(arguments,1);return this.map(function(){var c=d(this),e=c.data(m);if(e&&u[a])return u[a].apply(e,b)||this;e||a!==l&&"object"!==typeof a||c.data(m,new t(c,a));return this})}}(jQuery,
 window,"sortable");</script>
 
-        <apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/urlcallout.js')}" />
-        <script> var $copado = jQuery.noConflict(); </script>
+        <apex:includeScript value="{!URLFOR($Resource.urlcallout) }" />
+        <script> var $copado = jQuery.noConflict(); 
+        var Copado_Licenses = {!CurrentUserLicenses};</script>
 
         <script type="text/javascript">
             var __sfdcSessionId = '{!GETSESSIONID()}';
@@ -44,11 +58,11 @@ window,"sortable");</script>
         <apex:includeScript value="{!URLFOR($Resource.copado__jqx,'jqwidgets/jqx-all.js')}" />
 		<apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/json2.js')}"/>
         <apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/jquery.cometd.js')}"/>
-        <apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/copadoStreamingService.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.copadoStreamingService) }" />
 
         <apex:stylesheet value="{!URLFOR($Resource.copado__Statics,'css/wizard.css')}" />
-        <apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/deployment.js')}" />
-        <apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/deploymentStreamingService.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.deployment) }" />
+        <apex:includeScript value="{!URLFOR($Resource.deploymentStreamingService) }" />
     </head>
 
 <div id="screenLocker" ><p><img src="/img/loading.gif" />  {!$Label.LOADING}</p></div>
@@ -83,17 +97,21 @@ window,"sortable");</script>
         quick_actions_url: '{!JSENCODE(quick_actions_url)}',
         git_metadata_url: '{!JSENCODE(git_metadata_url)}'
     };
-    rock.deploymentId = '{!dep.id}';
-    rock.org__c = '{!dep.copado__From_Org__c}';
+    rock.EditGitPromotion = '{!$Permission.copado__Edit_Git_Promotion_Step}';
+    rock.scalable = {!scalableGrid};
+    rock.deploymentId = '{!JSENCODE(dep.id)}';
+    rock.org__c = '{!JSENCODE(dep.copado__From_Org__c)}';
     rock.selectedNames = [];
-    copadoApp.data.dep = {!DepJson};
-    copadoApp.data.destinations = {!destinationsJson};
-    copadoApp.orgFiltered = {!orgFiltered};
-    copadoApp.fromValid = {!fromValid};
+    copadoApp.data.dep = JSON.parse("{!JSENCODE(DepJson)}");
+    copadoApp.data.destinations = JSON.parse("{!JSENCODE(destinationsJson)}");
+    copadoApp.orgFiltered = ('{!JSENCODE(IF(orgFiltered,'true','false'))}' == 'true');
+    copadoApp.fromValid = ('{!JSENCODE(IF(fromValid,'true','false'))}' == 'true');
+    copadoApp.jobsManagerMatchingKey = "{!jobsManagerMatchingKey}";
     console.log('jsconfig , redirectToDeploy', copadoApp.redirectToDeploy)
     copadoApp.redirectToDeploy && copadoApp.deploy() ;
     copadoApp.starded && copadoApp.checkDeploymentStage();
-    copadoApp.ns = '{!namespace}';
+    copadoApp.ns = '{!JSENCODE(namespace)}';
+    rock.config.ns = copadoApp.ns;
     deploymentStreamingService.ns = copadoApp.ns;
 
     $copado( document ).ready(function() {
@@ -119,7 +137,7 @@ window,"sortable");</script>
 
 
 
-<div id="body">
+<div id="body" class="slds-scope">
     <c:IframeLocker url="/apex/deploymentStatus?id={!dep.Id}" />
 
     <apex:sectionHeader id="sectionHeader" title="{!$ObjectType.copado__Deployment__c.Label} {!$Label.copado__edit}" subtitle="{!IF(ISBLANK(dep.Name),$Label.copado__new+' '+ $ObjectType.copado__Deployment__c.Label ,dep.Name)}" />
@@ -133,6 +151,7 @@ window,"sortable");</script>
     <div id="form">
         <apex:form id="theForm">
 
+        <c:JobsManager matchingKeys="{!jobsManagerMatchingKey}" rendered="{! !ISBLANK(jobsManagerMatchingKey)}"></c:JobsManager>
 
         <div class="row">
           <apex:panelGrid id="theGrid" columns="2" style="width:100%;" columnClasses="co-info-panel">
@@ -254,7 +273,7 @@ window,"sortable");</script>
 
                     <apex:pageBlockSection id="pbsPbStatus" columns="1">
                         <apex:outputField id="ofStatus" value="{!dep.copado__Status__c}">
-                            <span class="orgIcon js-status-icon"><apex:outputText value="{!dep.copado__Flag_Status__c}" escape="false"/></span>
+                            <span class="orgIcon"><apex:image styleClass="js-status-icon" value="{!HTMLENCODE(dep.copado__Flag_Status__c)}" /></span>
                         </apex:outputField>
                         <apex:outputField id="ofDate" value="{!dep.copado__Date__c}" />
                         <apex:outputField id="ofCompleted" value="{!dep.copado__Completed__c}" />
@@ -324,12 +343,13 @@ window,"sortable");</script>
                                     <option value="Data">{!$Label.STEP_TYPE_DATA}</option>
                                     <option value="Bulk Data">{!$Label.STEP_TYPE_BULK_DATA}</option>
                                     <option value="Delete MetaData">{!$Label.STEP_TYPE_DELETE_METADATA}</option>
-                                    <option value="Custom Settings">{!$Label.copado__step_type_custom_settings}</option>
+                                    <option value="Custom Settings">{!$Label.STEP_TYPE_CUSTOM_SETTINGS}</option>
                                     <option value="Apex">{!$Label.STEP_TYPE_APEX}</option>
                                     <option value="Manual Task">{!$Label.STEP_TYPE_MANUAL_TASK}</option>
                                     <option value="Git MetaData">{!$Label.STEP_TYPE_GIT_METADATA}</option>
                                     <option value="Git Promotion" data-non-user-selectable="true" disabled="disabled">Git Promotion</option>
                                     <option value="URL Callout">{!$Label.STEP_TYPE_URL_CALLOUT}</option>
+                                    <option value="External CI">{!$Label.EXTERNAL_CI_JOB}</option>
                                 </select>
                             </td>
                             <td class="dataCell  js-col-check" colspan="1">
@@ -356,6 +376,7 @@ window,"sortable");</script>
                       <div id="stepDetail">
                         <apex:form id="theForm3">
                              <c:StepEdition />
+                             
                         </apex:form>
 
                       </div>
@@ -386,7 +407,7 @@ window,"sortable");</script>
 
     <script type="text/javascript">
         ga('send', 'event', 'Deployment', 'view','loading');
-        copadoApp.start({!DepJson},{!stepsJson});
+        copadoApp.start(JSON.parse("{!JSENCODE(DepJson)}"),JSON.parse("{!JSENCODE(stepsJson)}"));
         ga('send', 'event', 'Deployment', 'view','loaded');
     </script>
 
@@ -419,9 +440,9 @@ window,"sortable");</script>
 <apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/Cometd.js')}"/>
 <apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/json2.js')}"/>
 <apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/jquery.cometd.js')}"/>
-<apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/copadoStreamingService.js')}" />
-<apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/statusManager.js')}" />
-<apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/utilsV2.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.copadoStreamingService) }" />
+<apex:includeScript value="{!URLFOR($Resource.statusManager) }" />
+<apex:includeScript value="{!URLFOR($Resource.utilsV2) }"/>
 
 <!--c:ScreenLocker msg="{!$Label.LOADING}" /-->
 
@@ -432,15 +453,16 @@ window,"sortable");</script>
         if(copadoApp._statusManagerStarted)return;
 
         copadoApp._statusManagerStarted = true;
-        copadoStreamingService.ns = '{!namespace}';
+        copadoStreamingService.ns = '{!JSENCODE(namespace)}';
         copadoStreamingService.init();
-        statusManager.ns = '{!namespace}';
-        statusManager.herokuServer = '{!herokuServer}';
-        statusManager.urlParameters = '{!urlParameters}';
+        statusManager.ns = '{!JSENCODE(namespace)}';
+        statusManager.herokuServer = '{!JSENCODE(herokuServer)}';
+        statusManager.urlParameters = '{!JSENCODE(urlParameters)}';
         statusManager.sessionId = __sfdcSessionId;
 
     };
     copadoApp.bindActions();
+    
 </script>
 
 <c:CheckFeaturesComponent />
@@ -449,4 +471,5 @@ window,"sortable");</script>
                     console.log('unloading iframe');
                 });
     </script>
+</apex:outputPanel>
 </apex:page>

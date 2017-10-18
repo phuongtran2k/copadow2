@@ -1,9 +1,10 @@
-<apex:page showHeader="true" sidebar="true" standardController="copado__OrgDiff__c" extensions="copado.OrgDiffExtension" title="{!$ObjectType.copado__OrgDiff__c.Label} {!$ObjectType.copado__Deployment__c.Label}">
+<apex:page showHeader="true" sidebar="true" standardController="copado__OrgDiff__c" extensions="copado.OrgDiffExtension,copado.Settings" title="{!$ObjectType.copado__OrgDiff__c.Label} {!$ObjectType.copado__Deployment__c.Label}">
     <c:GAnalytics />
     <apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/libs/jquery.min.1.10.2.js')}" />
     <script> var $copado = jQuery.noConflict(); </script>
     <script type="text/javascript">
         var __sfdcSessionId = '{!GETSESSIONID()}';
+        var Copado_Licenses = {!CurrentUserLicenses};
     </script>
     <script src="/soap/ajax/27.0/connection.js"></script>
 
@@ -13,7 +14,7 @@
         //todo get url by method
         var diffDeployment = {}; 
         $copado(function(){
-            diffDeployment.apiUrl = '{!deploy_url}';
+            diffDeployment.apiUrl = '{!JSENCODE(deploy_url)}';
             diffDeployment.onSuccess = function(d){
                 $copado('.js-diffDeployment').fadeOut();
                 console.log(11,d);

@@ -3,10 +3,14 @@
     <head>
         <c:GAnalytics />
           <apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/libs/jquery.min.1.10.2.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/Cometd.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/jquery.cometd.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.copadoStreamingService) }" />
         <script> var $copado = jQuery.noConflict(); </script>
 
         <script type="text/javascript">
             var __sfdcSessionId = '{!GETSESSIONID()}';
+            var Copado_Licenses = {!CurrentUserLicenses};
         </script>
         <script type="text/javascript">
           //CREATE NAMESPACE
@@ -29,6 +33,8 @@
         <apex:sectionHeader title="{!$ObjectType.copado__Deployment__c.LabelPlural}" subtitle="{!$Label.copado__header_setup_schedule}" description="{!$Label.copado__header_desc_setup_schedule}" rendered="{!AND(step_setupSchedule,NOT(ui2))}" />
         
         <apex:pageMessages />
+
+        <c:JobsManager matchingKeys="{!$CurrentPage.parameters.jobsManagerMatchingKey}" rendered="{! !ISBLANK($CurrentPage.parameters.jobsManagerMatchingKey)}"></c:JobsManager>
         
         <apex:pageBlock id="pb_createDeployment" rendered="{!step_createDeployment}" mode="edit" helpUrl="http://docs.copa.do/copado/adding-steps-to-a-deployment" helpTitle="{!$Label.copado__help_for_this_page}">
             <apex:pageblockButtons >
@@ -66,8 +72,8 @@
                     users_url : '{!JSENCODE(users_url)}',
                     describe_url : '{!JSENCODE(describe_url)}'
                 };
-                rock.deploymentId = '{!deployment.id}';
-                rock.org__c = '{!deployment.copado__From_Org__c}'; 
+                rock.deploymentId = '{!JSENCODE(deployment.id)}';
+                rock.org__c = '{!JSENCODE(deployment.copado__From_Org__c)}'; 
                 rock.selectedNames = [];
             </script>   
             <script>
@@ -154,14 +160,14 @@
                                 </apex:facet>
                             </apex:actionStatus>
                             <script language="javascript">
-                                rock.stepId = '{!selectedStep}';
+                                rock.stepId = '{!JSENCODE(selectedStep)}';
                                
                                 rock.stepUI = { 
-                                    name: '{!$Component.pbs_step.stepName}',
-                                    order: '{!$Component.pbs_step.stepOrder}',
-                                    type: '{!$Component.pbs_step.stepType}',
-                                    data: '{!$Component.pbs_step.dataJson}',
-                                    checkOnly : '{!$Component.pbs_step.stepCheckOnly}'
+                                    name: '{!JSENCODE($Component.pbs_step.stepName)}',
+                                    order: '{!JSENCODE($Component.pbs_step.stepOrder)}',
+                                    type: '{!JSENCODE($Component.pbs_step.stepType)}',
+                                    data: '{!JSENCODE($Component.pbs_step.dataJson)}',
+                                    checkOnly : '{!JSENCODE($Component.pbs_step.stepCheckOnly)}'
                                 };
                             
                             
@@ -454,4 +460,11 @@
     </apex:form>
     <div id="output"> </div>
     <c:CheckFeaturesComponent />
+
+    <script type="text/javascript">
+        $copado( document ).ready(function() {
+            copadoStreamingService.ns = '{!JSENCODE(namespace)}';
+            copadoStreamingService.init();
+        });
+    </script>
 </apex:page>

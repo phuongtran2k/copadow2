@@ -2,7 +2,14 @@
 	<head>
 		<apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/libs/jquery.min.1.10.2.js')}" />
 		<apex:stylesheet value="{!URLFOR($Resource.copado__Statics,'css/wizard.css')}" />
-		<script> var $copado = jQuery.noConflict(); </script>
+		<script> 
+		var $copado = jQuery.noConflict(); 
+
+		function changeLookUpType(type){
+			$copado("[id$=userInput_lktp]").val(type);
+		}
+
+		</script>
 	</head>
 
 	<c:ScreenLocker id="screenLocker" msg="{!$Label.copado__loading}" />
@@ -40,6 +47,10 @@
 						<apex:outputLabel value="{!$Label.copado__ccm_licenses_used}" />
 						<apex:outputText id="txtCCMlicenses" value="{!CCMLicensesUsed}/{!CCMLicensesAvailable}" />
 					</apex:pageBlockSectionItem>
+					<apex:pageBlockSectionItem > <!-- CAD AVAILABLE LICENSES -->
+						<apex:outputLabel value="{!$Label.copado__cad_licenses_used}" />
+						<apex:outputText id="txtCADlicenses" value="{!CADLicensesUsed}/{!CADLicensesAvailable}" />
+					</apex:pageBlockSectionItem>
 					<apex:pageBlockSectionItem >
 						<apex:outputLabel value="{!$Label.copado__cst_licenses_used}" />
 						<apex:outputText id="txtCSTlicenses" value="{!CSTLicensesUsed}/{!CSTLicensesAvailable}" />
@@ -47,11 +58,18 @@
 				</apex:pageBlockSection>
 
 				<apex:pageBlockSection columns="1" title="{!$Label.copado__add_update_user}" collapsible="false">
-					<apex:pageBlockSectionItem >
+
+                    <apex:pageBlockSectionItem >    <!--USER LICENSE TYPE PICKLIST -->
                     	<apex:outputLabel >User</apex:outputLabel>
-                        <apex:inputField value="{!dummyUser.ManagerId}"/>
-                    </apex:pageBlockSectionItem>
-					<apex:pageBlockSectionItem >
+                    	<apex:outputPanel layout="block">
+                    		<apex:selectList title="User License Type" label="User" size="1" multiselect="false" onchange="changeLookUpType(this.value);" >
+            					<apex:selectOptions value="{!licenseTypes}"/> 
+        					</apex:selectList>
+        					<apex:inputField value="{!dummyUser.ManagerId}" id="userInput"/>
+        				</apex:outputPanel>
+        			</apex:pageBlockSectionItem>
+
+					<apex:pageBlockSectionItem helpText="Copado = Copado Enterprise">
 						<apex:outputLabel value="{!$Label.copado__assign_copado_license}" />
 						<apex:inputCheckbox id="chkAssignCopado" value="{!assignCopado}" />
 					</apex:pageBlockSectionItem>
@@ -63,6 +81,10 @@
 						<apex:outputLabel value="{!$Label.copado__assign_cst_license}" />
 						<apex:inputCheckbox id="chkAssignCST" value="{!assignCST}" />
 					</apex:pageBlockSectionItem>
+					<apex:pageBlockSectionItem helpText="CAD = Copado Agile Delivery" rendered="{!enableMultiLicenses}">
+						<apex:outputLabel value="{!$Label.copado__assign_cad_license}" />  <!-- ASSIGNE CAD LICENSE-->
+						<apex:inputCheckbox id="chkAssignCAD" value="{!assignCAD}" />
+					</apex:pageBlockSectionItem>					
 					<apex:pageBlockSectionItem >
 						<apex:outputLabel value="" />
 						<apex:commandButton id="btnAddUser" value="{!$Label.copado__add_update_user}" action="{!addUser}" reRender="theForm" status="status" />
@@ -99,7 +121,23 @@
 						</apex:column>
 					</apex:pageBlockTable>
 				</apex:pageBlockSection>
-            
+				<!--CAD USERS************************************************************+ DIV-->	
+				<apex:pageBlockSection title="{!$Label.copado__cad_users}" columns="1" collapsible="false" id="pbsCAD">
+					<apex:pageBlockTable value="{!cadUsage}" var="row" id="tblCCMUsage">
+						<apex:column width="100">
+							<apex:facet name="header">{!$Label.copado__action_column_header}</apex:facet>
+							<apex:outputPanel >
+								<apex:commandLink id="lnkCADRemove" value="{!$Label.copado__remove}" action="{!row.removeAssignment}" reRender="theForm" status="status" />
+							</apex:outputPanel>
+						</apex:column>
+						<apex:column >
+							<apex:facet name="header">{!$Label.copado__name}</apex:facet>
+							<apex:outputText id="txtCADUserName" value="{!row.license.SetupOwner.Name}" />
+						</apex:column>
+					</apex:pageBlockTable>
+				</apex:pageBlockSection>
+				<!--CAD USERS************************************************************+ DIV-->	
+
                 <apex:pageBlockSection title="{!$Label.copado__cst_users}" columns="1" collapsible="false" id="pbsCST">
                     <apex:pageBlockTable value="{!cstUsage}" var="row" id="tblCSTUsage">
                         <apex:column width="100">
@@ -117,4 +155,5 @@
             </apex:pageBlock>
 		</apex:outputPanel>
 	</apex:form>
+	<c:CheckFeaturesComponent />
 </apex:page>

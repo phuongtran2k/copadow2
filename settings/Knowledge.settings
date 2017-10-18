@@ -9,6 +9,7 @@
         </articlePublicSharingCommunities>
         <enableArticleCreation>false</enableArticleCreation>
         <enableArticlePublicSharingSites>true</enableArticlePublicSharingSites>
+        <enableCaseDataCategoryMapping>true</enableCaseDataCategoryMapping>
         <useProfileForPDFCreation>false</useProfileForPDFCreation>
     </cases>
     <defaultLanguage>en_US</defaultLanguage>
@@ -16,6 +17,7 @@
     <enableCreateEditOnArticlesTab>true</enableCreateEditOnArticlesTab>
     <enableExternalMediaContent>true</enableExternalMediaContent>
     <enableKnowledge>true</enableKnowledge>
+    <enableLightningKnowledge>false</enableLightningKnowledge>
     <showArticleSummariesCustomerPortal>true</showArticleSummariesCustomerPortal>
     <showArticleSummariesInternalApp>true</showArticleSummariesInternalApp>
     <showArticleSummariesPartnerPortal>false</showArticleSummariesPartnerPortal>

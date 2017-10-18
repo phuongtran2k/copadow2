@@ -46,6 +46,7 @@
     <deprecated>false</deprecated>
     <enableActivities>false</enableActivities>
     <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
     <enableFeeds>false</enableFeeds>
     <enableHistory>true</enableHistory>
     <enableReports>true</enableReports>
@@ -76,6 +77,34 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>copado__Commits_Ahead__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Commits Ahead</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>copado__Commits_Behind__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Commits Behind</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>copado__Deployment_Flow__c</fullName>
         <deprecated>false</deprecated>
         <externalId>false</externalId>
@@ -89,6 +118,20 @@
         <trackTrending>false</trackTrending>
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>copado__Destination_Branch__c</fullName>
+        <deprecated>false</deprecated>
+        <description>This is the Git branch linked to the destination environment. This Git branch is defined in another deployment flow step record where the current destination environment is the source environment.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This is the Git branch linked to the destination environment. This Git branch is defined in another deployment flow step record where the current destination environment is the source environment.</inlineHelpText>
+        <label>Destination Branch</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>copado__Destination_Environment__c</fullName>
@@ -105,6 +148,68 @@
         <type>Lookup</type>
     </fields>
     <fields>
+        <fullName>copado__Last_Merge_Base__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Last date and time when the source and target branch were in Sync (no commits ahead or behind).</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Last date and time when the source and target branch were in Sync (no commits ahead or behind).</inlineHelpText>
+        <label>Last Merge Base</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>copado__Last_Merge_CBM_Sync__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Last date and time when the CBM Sync button was clicked to merge and deploy changes to the destination environment.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Last date and time when the CBM Sync button was clicked to merge and deploy changes to the destination environment.</inlineHelpText>
+        <label>Last Merge CBM Sync</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>copado__Last_Pull_CBM_Sync__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Last date and time when the CBM Sync button was clicked to merge and deploy changes to the source environment.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Last date and time when the CBM Sync button was clicked to merge and deploy changes to the source environment.</inlineHelpText>
+        <label>Last Pull CBM Sync</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>copado__Merge_Auto_Resolved_Files__c</fullName>
+        <deprecated>false</deprecated>
+        <description>List of conflicted files auto resolved by Copado when merging the source branch into the destination branch.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>List of conflicted files auto resolved by Copado when merging the source branch into the destination branch.</inlineHelpText>
+        <label>Merge Auto Resolved Files</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>copado__Pull_Auto_Resolved_Files__c</fullName>
+        <deprecated>false</deprecated>
+        <description>List of conflicted files auto resolved by Copado when merging the destination branch into the source branch.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>List of conflicted files auto resolved by Copado when merging the destination branch into the source branch.</inlineHelpText>
+        <label>Pull Auto Resolved Files</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
         <fullName>copado__Source_Environment__c</fullName>
         <deleteConstraint>Restrict</deleteConstraint>
         <deprecated>false</deprecated>
@@ -117,6 +222,96 @@
         <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>copado__Sync_Merge_State__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Sync Merge State</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Needs recalculating</fullName>
+                    <default>true</default>
+                    <label>Needs recalculating</label>
+                </value>
+                <value>
+                    <fullName>Recalculating</fullName>
+                    <default>false</default>
+                    <label>Recalculating</label>
+                </value>
+                <value>
+                    <fullName>In sync</fullName>
+                    <default>false</default>
+                    <label>In sync</label>
+                </value>
+                <value>
+                    <fullName>Validated</fullName>
+                    <default>false</default>
+                    <label>Validated</label>
+                </value>
+                <value>
+                    <fullName>Validation errors</fullName>
+                    <default>false</default>
+                    <label>Validation errors</label>
+                </value>
+                <value>
+                    <fullName>Syncing</fullName>
+                    <default>false</default>
+                    <label>Syncing</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>copado__Sync_Pull_State__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Sync Pull State</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Needs recalculating</fullName>
+                    <default>true</default>
+                    <label>Needs recalculating</label>
+                </value>
+                <value>
+                    <fullName>Recalculating</fullName>
+                    <default>false</default>
+                    <label>Recalculating</label>
+                </value>
+                <value>
+                    <fullName>In sync</fullName>
+                    <default>false</default>
+                    <label>In sync</label>
+                </value>
+                <value>
+                    <fullName>Validated</fullName>
+                    <default>false</default>
+                    <label>Validated</label>
+                </value>
+                <value>
+                    <fullName>Validation errors</fullName>
+                    <default>false</default>
+                    <label>Validation errors</label>
+                </value>
+                <value>
+                    <fullName>Syncing</fullName>
+                    <default>false</default>
+                    <label>Syncing</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
     </fields>
     <fields>
         <fullName>copado__Test_Level__c</fullName>

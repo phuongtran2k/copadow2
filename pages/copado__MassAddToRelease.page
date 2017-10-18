@@ -1,6 +1,6 @@
 <apex:page standardController="copado__Release__c" extensions="copado.MassAddToReleaseExtension" id="thePage">
 
-	<apex:sectionHeader id="sectionHeader" title="Mass Add to Release" subtitle="subtitle" />
+	<apex:sectionHeader id="sectionHeader" title="Mass Add to Release" subtitle="{!release.Name}" />
 	<apex:pageMessages id="theMessages" />
 	
 	<apex:form id="theForm">
@@ -17,7 +17,7 @@
 							<apex:facet name="header">
 								<apex:inputCheckbox id="chkAll" onclick="checkAll(this,'{!$Component.pbtUserStories}','chkRelease')"/>
 							</apex:facet>
-							<apex:inputCheckbox id="chkRelease" value="{!s.selected}" />
+							<apex:inputCheckbox id="chkRelease" value="{!u.selected}" />
 						</apex:column>
 						<apex:column >
 							<apex:facet name="header">
@@ -36,7 +36,7 @@
 			</apex:repeat>
 		</apex:pageBlock>
 	</apex:form>
-	<script id="script_CheckAll" type="text/javascript" src="{!URLFOR($Resource.CopadoChangeManagement, 'Assets/js/common.js')}"></script>
+	<script id="script_CheckAll" type="text/javascript" src="{!URLFOR($Resource.common) }"></script>
 	<c:GAnalytics />
     <script>
         ga('send', 'pageview', {

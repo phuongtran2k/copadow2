@@ -98,7 +98,7 @@
 				            </apex:pageBlockSectionItem>
                            	<div id="stepDetail" style="padding-bottom:20px;"></div>
                             <script type="text/javascript">
-                                if('{!step.Type__c}'!='Data'){
+                                if('{!JSENCODE(step.Type__c)}'!='Data'){
                                     var queryString = "SELECT Id, Body, BodyLength, ContentType, Name, ParentId FROM Attachment where ParentId='{!step.Id}' limit 1";
                                     var result = sforce.connection.query(queryString, {
                                         onSuccess : success,
@@ -111,11 +111,11 @@
                                             try{
                                                 var res = null;
                                                 res = Base64.decode(records[0].Body);
-                                                if('{!step.Type__c}'=='MetaData' || '{!step.Type__c}'=='Full Profiles'  || '{!step.Type__c}'=='Full Permission Sets' || '{!step.Type__c}'=='Translations' || '{!step.Type__c}'=='Delete MetaData'){
+                                                if('{!JSENCODE(step.Type__c)}'=='MetaData' || '{!JSENCODE(step.Type__c)}'=='Full Profiles'  || '{!JSENCODE(step.Type__c)}'=='Full Permission Sets' || '{!JSENCODE(step.Type__c)}'=='Translations' || '{!JSENCODE(step.Type__c)}'=='Delete MetaData'){
                                                     drawTableMetaDataTable(res, 'stepDetail');
                                                 }
-                                                else if('{!step.Type__c}'=='Users'){
-                                                    var resultUser = sforce.connection.query("SELECT Id, Body, BodyLength, ContentType, Name, ParentId FROM Attachment where ParentId='{!copado__Deployment__c.copado__From_Org__c}' and Name ='Users' limit 1", {
+                                                else if('{!JSENCODE(step.Type__c)}'=='Users'){
+                                                    var resultUser = sforce.connection.query("SELECT Id, Body, BodyLength, ContentType, Name, ParentId FROM Attachment where ParentId='{!JSENCODE(Deployment__c.From_Org__c)}' and Name ='Users' limit 1", {
                                                         onSuccess : successUser,
                                                         onFailure : failureUser
                                                     });
@@ -129,7 +129,7 @@
                                                                 drawTableUserTable(resUser, 'stepDetail',res);
                                                             }
                                                             catch(e){
-                                                                console.error("Exception on parsing ({!step.Type__c}): ",e);
+                                                                console.error("Exception on parsing ({!JSENCODE(step.Type__c)}): ",e);
                                                             }
                                                         }
                                                     }
@@ -139,7 +139,7 @@
                                                 }
                                             }
                                             catch(e){
-                                                console.error("Exception on parsing ({!step.Type__c}): ",e);
+                                                console.error("Exception on parsing ({!JSENCODE(step.Type__c)}): ",e);
                                             }
                                         }
                                     }
@@ -154,7 +154,7 @@
                                             array_name[i] = new Array(array[i].n, array[i].t);
                                         }
                                         $('#stepDetail').html( '<table cellpadding="0" cellspacing="0" border="0" class="display" id="tblstepDetail"></table>' );
-                                        if('{!step.Type__c}'=='MetaData' || '{!step.Type__c}'=='Full Profiles' || '{!step.Type__c}'=='Full Permission Sets' || '{!step.Type__c}'=='Translations' || '{!step.Type__c}'=='Delete MetaData'){
+                                        if('{!JSENCODE(step.Type__c)}'=='MetaData' || '{!JSENCODE(step.Type__c)}'=='Full Profiles' || '{!JSENCODE(step.Type__c)}'=='Full Permission Sets' || '{!JSENCODE(step.Type__c)}'=='Translations' || '{!JSENCODE(step.Type__c)}'=='Delete MetaData'){
                                             oTable = $('#tblstepDetail').dataTable( {
                                                 "aaData": array_name,
                                                 "aoColumns": [ { "sTitle": "{!$Label.NAME}" },{ "sTitle": "{!$Label.TYPE}" } ],

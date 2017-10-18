@@ -7,4 +7,5 @@
     <style>none</style>
     <subject>Field Trip Processing Complete: {!Field_Trip__Object_Analysis__c.Name}</subject>
     <type>text</type>
+    <uiType>Aloha</uiType>
 </EmailTemplate>

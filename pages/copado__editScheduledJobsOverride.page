@@ -1,12 +1,12 @@
-<apex:page id="thePage" standardController="copado__Scheduled_Job__c">
+<apex:page id="thePage" standardController="copado__Scheduled_Job__c" extensions="copado.ScheduledJobExtension">
     <style>
     	.longerField { width:60%; }
     </style>
     <c:GAnalytics />
     <apex:sectionHeader id="theHeader"/>
-    
+    <apex:pageMessages id="the_messages"/>
     <apex:form id="theForm">
-    	<apex:pageBlock id="pb" mode="edit">
+    	<apex:pageBlock id="pb" mode="edit" rendered="{!AND(showOptions,!showError)}">
         	<apex:pageBlockButtons id="pbbs">
             	<apex:commandButton id="btnSave" action="{!save}" title="{!$Label.copado__save}" value="{!$Label.copado__save}" />
                 <apex:commandButton id="btnCancel" action="{!cancel}" title="{!$Label.copado__cancel}" value="{!$Label.copado__cancel}" immediate="true" />

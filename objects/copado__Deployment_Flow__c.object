@@ -46,6 +46,7 @@
     <deprecated>false</deprecated>
     <enableActivities>false</enableActivities>
     <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
     <enableFeeds>false</enableFeeds>
     <enableHistory>true</enableHistory>
     <enableReports>true</enableReports>
@@ -148,6 +149,20 @@ IF($Setup.copado__Settings__c.copado__Namespace__c=&apos;none&apos;,&apos;&apos;
         <type>Text</type>
         <unique>false</unique>
     </fields>
+    <fields>
+        <fullName>copado__Static_Code_Analysis_Settings__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Static Code Analysis Settings</label>
+        <referenceTo>copado__Static_Code_Analysis_Settings__c</referenceTo>
+        <relationshipLabel>Deployment Flows</relationshipLabel>
+        <relationshipName>Deployment_Flows</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
     <label>Deployment Flow</label>
     <listViews>
         <fullName>copado__All</fullName>
@@ -206,12 +221,22 @@ IF($Setup.copado__Settings__c.copado__Namespace__c=&apos;none&apos;,&apos;&apos;
         <fullName>copado__Manage_Environment_Variables</fullName>
         <availability>online</availability>
         <displayType>button</displayType>
-        <encodingKey>UTF-8</encodingKey>
         <height>600</height>
-        <linkType>url</linkType>
+        <linkType>page</linkType>
         <masterLabel>Manage Environment Variables</masterLabel>
         <openType>sidebar</openType>
+        <page>copado__ManageEnvVars</page>
         <protected>false</protected>
-        <url>/apex/{!if($Setup.copado__Settings__c.copado__Namespace__c =&apos;none&apos;,&apos;&apos;,&apos;copado__&apos;)}ManageEnvVars?dfId={!copado__Deployment_Flow__c.Id}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>copado__Manage_Regression_Tests</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>Manage Regression Tests</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <url>/apex/{!if($Setup.copado__Settings__c.copado__Namespace__c =&apos;none&apos;,&apos;&apos;,&apos;copado__&apos;)}ManageSeleniumTesting?regression=true&amp;flowId={!copado__Deployment_Flow__c.Id}</url>
     </webLinks>
 </CustomObject>

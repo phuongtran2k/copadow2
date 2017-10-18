@@ -1,15 +1,16 @@
 <apex:page showHeader="true" sidebar="false" docType="html-5.0" standardController="copado__Deployment__c" extensions="copado.DeployCommits,copado.Settings" id="thePage">
     <apex:sectionHeader id="sectionHeader" title="{!$ObjectType.copado__Deployment__c.Label}" subtitle="{!$Label.copado__new+' '+$ObjectType.copado__Deployment__c.Label}" />
     <apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/libs/jquery.min.1.10.2.js')}" />
-    <apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/statusManager.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.statusManager) }" />
     <apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/Cometd.js')}"/>
     <apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/json2.js')}"/>
     <apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/jquery.cometd.js')}"/>
-    <apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/copadoStreamingService.js')}" />    
-    <script type="text/javascript" src="{!URLFOR($Resource.Statics,'js/utils.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.copadoStreamingService) }" />    
+    <script type="text/javascript" src="{!URLFOR($Resource.utils) }" />
     <script type="text/javascript"> 
         var $copado = jQuery.noConflict(); 
     	var __sfdcSessionId = '{!GETSESSIONID()}';
+        var Copado_Licenses = {!CurrentUserLicenses};
     </script>
     <c:WizardUtils />
     <script id="connectionJS" src="/soap/ajax/34.0/connection.js" />
@@ -17,16 +18,16 @@
     <script>
     	_config = {
             data: {
-            	repositoryId: '{!repositoryId}',
-                branch: '{!branch}',
-                fromCommitId: '{!startCommit}',
-                toCommitId: '{!endCommit}',
-                runAllTests: '{!step.Run_all_tests__c}',
-                checkOnly: '{!step.copado__CheckOnly__c}',
-                deploymentName: '{!deployment.Name}'
+            	repositoryId: '{!JSENCODE(repositoryId)}',
+                branch: '{!JSENCODE(branch)}',
+                fromCommitId: '{!JSENCODE(startCommit)}',
+                toCommitId: '{!JSENCODE(endCommit)}',
+                runAllTests: ('{!JSENCODE(IF(step.Run_all_tests__c,'true','false'))}' == 'true'),
+                checkOnly: ('{!JSENCODE(IF(step.CheckOnly__c,'true','false'))}' == 'true'),
+                deploymentName: '{!JSENCODE(deployment.Name)}'
             },
             server: {
-            	url: '{!urlBase}gitDeployment/__REPOID__{!urlParameters}'
+            	url: '{!JSENCODE(urlBase)}gitDeployment/__REPOID__{!JSENCODE(urlParameters)}'
             }
         };
     	copadoApp = {

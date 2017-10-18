@@ -64,6 +64,7 @@
             <operator>equals</operator>
             <value>0F9</value>
         </criteriaItems>
+        <language>en_US</language>
     </filter>
     <format>Summary</format>
     <groupingsDown>
